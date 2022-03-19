@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="240dp"
+    android:layout_gravity="center_horizontal"
+    app:cardCornerRadius="7dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/penumpang_text"
+            style="@style/PembelianTextPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/penumpang"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/input_nama_penumpang"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/custom_passenger_input"
+            android:drawablePadding="10dp"
+            android:paddingStart="10dp"
+            android:hint="@string/nama_penumpang"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/penumpang_text" />
+
+        <EditText
+            android:id="@+id/input_ktp_penumpang"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/custom_plate_number_input"
+            android:drawablePadding="10dp"
+            android:paddingStart="10dp"
+            android:hint="@string/nomor_ktp"
+            android:textSize="11sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/input_nama_penumpang"/>
+
+        <Button
+            android:id="@+id/button_input_penumpang"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:text="@string/masukan_penumpang"
+            android:background="@android:color/transparent"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="10sp"
+            app:layout_constraintTop_toBottomOf="@id/input_ktp_penumpang"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ticket_kapal"
+    android:background="@color/light_blue">
+
+    <EditText
+        android:id="@+id/pelabuhan_asal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="10dp"
+        android:drawableStart="@drawable/custom_pelabuhan_input"
+        android:drawablePadding="10dp"
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:inputType="textNoSuggestions"
+        android:hint="@string/pelabuhan_asal"
+        android:textSize="14sp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <EditText
+        android:id="@+id/pelabuhan_tujuan"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="10dp"
+        android:drawableStart="@drawable/custom_pelabuhan_input"
+        android:drawablePadding="10dp"
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:inputType="textNoSuggestions"
+        android:hint="@string/pelabuhan_tujuan"
+        android:textSize="14sp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintTop_toBottomOf="@id/pelabuhan_asal"/>
+
+    <EditText
+        android:id="@+id/tanggal_keberangkatan"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="10dp"
+        android:drawableStart="@drawable/custom_date_input"
+        android:drawablePadding="10dp"
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:inputType="date"
+        android:hint="@string/tanggal_keberangkatan"
+        android:textSize="14sp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintTop_toBottomOf="@id/pelabuhan_tujuan"/>
+
+
+<!--    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tipe_jasa"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:drawablePadding="10dp"
+        app:startIconDrawable="@drawable/custom_service_type_input"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        android:background="@drawable/custom_input"
+        android:hint="@string/tipe_jasa"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tanggal_keberangkatan">
+
+        <AutoCompleteTextView
+            android:id="@+id/tipe_jasa_text_view"
+            android:paddingStart="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:textSize="14sp"
+            android:layout_weight="1"
+            android:inputType="none" />
+
+    </com.google.android.material.textfield.TextInputLayout>-->
+
+    <Spinner
+        android:id="@+id/tipe_jasa"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="10dp"
+        android:drawableStart="@drawable/custom_service_type_input"
+        android:drawablePadding="10dp"
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:inputType="textNoSuggestions"
+        android:hint="@string/tipe_jasa"
+        android:textSize="14sp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tanggal_keberangkatan"/>
+
+<!--    <EditText
+        android:id="@+id/tipe_jasa"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="10dp"
+        android:drawableStart="@drawable/custom_service_type_input"
+        android:drawablePadding="10dp"
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:inputType="textNoSuggestions"
+        android:hint="@string/tipe_jasa"
+        android:textSize="14sp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tanggal_keberangkatan"/>-->
+
+    <EditText
+        android:id="@+id/golongan"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="10dp"
+        android:drawableStart="@drawable/custom_car_input"
+        android:drawablePadding="10dp"
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:inputType="textNoSuggestions"
+        android:hint="@string/golongan_kendaraan"
+        android:textSize="14sp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintTop_toBottomOf="@id/tipe_jasa"/>
+
+    <EditText
+        android:id="@+id/nomor_kendaraan"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="10dp"
+        android:drawableStart="@drawable/custom_plate_number_input"
+        android:drawablePadding="10dp"
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:inputType="textNoSuggestions"
+        android:hint="@string/nomor_polisi"
+        android:textSize="14sp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintTop_toBottomOf="@id/golongan"/>
+
+    <EditText
+        android:id="@+id/penumpang"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="10dp"
+        android:drawableStart="@drawable/custom_passenger_input"
+        android:drawablePadding="10dp"
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:inputType="numberSigned"
+        android:hint="@string/jumlah_penumpang"
+        android:textSize="14sp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        app:layout_constraintTop_toBottomOf="@id/nomor_kendaraan"/>
+
+    <Button
+        android:id="@+id/btn_cari"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/penumpang"
+        android:layout_margin="25dp"
+        android:text="@string/btn_cari"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

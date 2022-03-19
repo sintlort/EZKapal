@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    >
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="200dp"
+        android:layout_height="175dp"
+        app:cardCornerRadius="5dp"
+        android:layout_margin="10dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image_berita"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:src="@drawable/shark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/title_berita"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/image_berita"
+                android:text="Title"
+                android:layout_margin="10dp"
+                android:textSize="15dp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Published at :"
+                android:layout_margin="5dp"
+                android:textSize="7dp"
+                android:textColor="@color/light_grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/date_berita"/>
+
+            <TextView
+                android:id="@+id/date_berita"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="21 January 2021"
+                android:layout_margin="5dp"
+                android:textSize="7dp"
+                android:textColor="@color/light_grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

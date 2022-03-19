@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">EZKapal</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nama">I Dewa Made Laksana Putra</string>
+    <string name="email">dewalaksana@student.unud.ac.id</string>
+    <string name="email_text">Email : </string>
+    <string name="ktp_text">KTP : </string>
+    <string name="ktp">1394000012321002 </string>
+    <string name="nomor_telepon_text">Telepon : </string>
+    <string name="nomor_telepon">08977200423</string>
+    <string name="pelabuhan_tujuan">Pelabuhan Tujuan</string>
+    <string name="pelabuhan_asal">Pelabuhan Asal</string>
+    <string name="tanggal_keberangkatan">Tanggal Keberangkatan</string>
+    <string name="tipe_jasa">Tipe Jasa</string>
+    <string name="golongan_kendaraan">Golongan Kendaraan</string>
+    <string name="nomor_polisi">Nomor Polisi</string>
+    <string name="jumlah_penumpang">Jumlah Penumpang</string>
+    <string name="btn_cari">Cari Jadwal</string>
+    <string name="btn_pilih">Pilih Tiket</string>
+    <string name="status">Status : </string>
+    <string name="Pcode">Kode : </string>
+    <string name="kodePelabuhan">AFF</string>
+    <string name="textTypePelabuhan">Tipe Pelabuhan : </string>
+    <string name="tipePelabuhan">Kapal</string>
+    <string name="textLamaBeroperasi">Lama Beroperasi : </string>
+    <string name="lamaBeroperasi">5 </string>
+    <string name="tahun"> Tahun</string>
+    <string name="textAlamat">Alamat : </string>
+    <string name="alamat">-</string>
+    <string name="button_pelabuhan">Pilih Pelabuhan</string>
+    <string name="on">On</string>
+    <string name="beroperasi">Beroperasi</string>
+    <string name="off">Off</string>
+    <string name="tidakBeroperasi">Tidak Beroperasi</string>
+    <string name="start_clock">20:00</string>
+    <string name="end_clock">21:00</string>
+    <string name="date">22-03-2022</string>
+    <string name="days">Senin</string>
+    <string name="dermaga">Dermaga</string>
+    <string name="harga">50.000,-</string>
+    <string name="rupiah">Rp. </string>
+    <string name="detail_jadwal">Detail Jadwal</string>
+    <string name="pemesan">Pemesan</string>
+    <string name="penumpang">Penumpang</string>
+    <string name="nama_penumpang">Nama Penumpang</string>
+    <string name="nomor_ktp">Nomor KTP</string>
+    <string name="masukan_penumpang">Masukan Penumpang</string>
+    <string name="kapal">Caspla</string>
+    <string name="waktu_pembayaran">Waktu Pembayaran : </string>
+    <string name="jam_berakhir">01:00:00</string>
+    <string name="terbayar">Terbayarkan</string>
+    <string name="tidak_terbayar">Tidak Terbayarkan</string>
+    <string name="ditolak">Ditolak</string>
+
+
+    <string-array name="service_type">
+        <item>Tipe Jasa</item>
+        <item>Penumpang</item>
+        <item>Kendaraan</item>
+    </string-array>
+</resources>

@@ -1,0 +1,93 @@
+package com.ezcats.ezkapal.Fragment;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.ezcats.ezkapal.Adapter.PelabuhanAdapter;
+import com.ezcats.ezkapal.Model.PelabuhanModel;
+import com.ezcats.ezkapal.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.content.ContentValues.TAG;
+
+public class PelabuhanFragment extends DialogFragment implements PelabuhanAdapter.OnPelabuhanListener{
+
+    private static final String TAG = "PELABUHAN_DIALOG_ASAL";
+
+    RecyclerView recyclerView;
+    List<PelabuhanModel> pelabuhanModelList;
+
+    public interface SendData{
+        void sendPelabuhanData(int id, String nama_pelabuhan);
+    }
+
+    public SendData mSendData;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            mSendData = (SendData) getTargetFragment();
+        } catch (ClassCastException e){
+            Log.d(TAG, "onAttach: "+e.getMessage());
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null)
+        {
+            int width = ViewGroup.LayoutParams.MATCH_PARENT;
+            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+            dialog.getWindow().setLayout(width, height);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_pelabuhan, container, false);
+        recyclerView = v.findViewById(R.id.pelabuhan_recycler);
+
+        initData();
+        startRecycler();
+
+        return v;
+    }
+
+    private void initData() {
+        pelabuhanModelList = new ArrayList<>();
+        pelabuhanModelList.add(new PelabuhanModel(1, "Pelabuhan 1", "Beroperasi", "AFF", "Kapal", "5", "Jalan Raya Sesetan Gang Gumuk Sari", "aaaaaa"));
+        pelabuhanModelList.add(new PelabuhanModel(2, "Pelabuhan 2", "Beroperasi", "AFS", "Kapal & Speedboat", "2", "Jalan Raya Sesetan Gang Gumuk Sari", "aaaaaa"));
+        pelabuhanModelList.add(new PelabuhanModel(3, "Pelabuhan 3", "Beroperasi", "AFD", "Speedboat", "1", "Jalan Raya Sesetan Gang Gumuk Sari", "aaaaaa"));
+        pelabuhanModelList.add(new PelabuhanModel(4, "Pelabuhan 4", "Beroperasi", "AFG", "Kapal", "3", "Jalan Raya Sesetan Gang Gumuk Sari", "aaaaaa"));
+    }
+
+    private void startRecycler() {
+        PelabuhanAdapter pelabuhanAdapter = new PelabuhanAdapter(pelabuhanModelList, this::OnPelabuhanClick);
+        recyclerView.setAdapter(pelabuhanAdapter);
+        recyclerView.setHasFixedSize(true);
+    }
+
+    @Override
+    public void OnPelabuhanClick(int id, String nama_pelabuhan) {
+        Log.d(TAG, "OnPelabuhanClick: " + id + " ; " + nama_pelabuhan);
+        mSendData.sendPelabuhanData(id, nama_pelabuhan);
+        getDialog().dismiss();
+    }
+}
