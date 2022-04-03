@@ -38,4 +38,11 @@ public interface TransactionService {
                                     @Header("Accept") String type,
                                     @Header("X-Requested-With") String request,
                                     @Field("id") int id_pembelian);
+
+    @FormUrlEncoded
+    @POST("check/ticket")
+    Call<ResponseBody> checkTicket(@Header("Authorization") String authHeader,
+                                       @Header("Accept") String type,
+                                       @Header("X-Requested-With") String request,
+                                       @Field("ticket_number") String ticket_number);
 }
