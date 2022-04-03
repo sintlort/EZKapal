@@ -53,7 +53,6 @@ public class PenumpangFragment extends DialogFragment {
         }
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

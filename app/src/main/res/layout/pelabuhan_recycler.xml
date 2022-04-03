@@ -25,7 +25,7 @@
                     android:id="@+id/image_pelabuhan"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/shark"
+                    android:src="@drawable/logo2"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.cardview.widget.CardView

@@ -5,8 +5,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.ezcats.ezkapal.APIClient.RetrofitClient;
+import com.ezcats.ezkapal.APIClient.Service.TicketService;
 import com.ezcats.ezkapal.Adapter.PelabuhanAdapter;
 import com.ezcats.ezkapal.Adapter.SearchTicketAdapter;
 import com.ezcats.ezkapal.Model.TicketModel;
@@ -15,39 +20,70 @@ import com.ezcats.ezkapal.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class SearchTicketActivity extends AppCompatActivity implements SearchTicketAdapter.OnPilihTiketListener {
 
+    private static final String TAG = "TICKET_ACTIVITY";
     RecyclerView recyclerView;
-    List<TicketModel> ticketModelList;
+    String tipe_kapal, date;
+    int asal_pelabuhan, tujuan_pelabuhan, jumlah_penumpang, idGolongan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_ticket);
 
+
+        Bundle bundle = getIntent().getExtras();
+        this.idGolongan = bundle.getInt("id_golongan");
+        this.asal_pelabuhan = bundle.getInt("asal_pelabuhan");
+        this.tujuan_pelabuhan = bundle.getInt("tujuan_pelabuhan");
+        this.jumlah_penumpang = bundle.getInt("jumlah_penumpang");
+        this.tipe_kapal = bundle.getString("tipe_kapal");
+        this.date = bundle.getString("date");
+        Log.d(TAG, "onCreate: "+date+" | "+tipe_kapal);
         initData();
-        startRecycler();
+
     }
 
-    private void startRecycler() {
-        SearchTicketAdapter adapter = new SearchTicketAdapter(ticketModelList, this::onClickPilihTiket);
+    private void startRecycler(List<TicketModel> ticketModels) {
+        SearchTicketAdapter adapter = new SearchTicketAdapter(ticketModels, this::onClickPilihTiket);
         recyclerView = findViewById(R.id.ticket_recycler);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
     }
 
     private void initData() {
-        ticketModelList = new ArrayList<>();
-        ticketModelList.add(new TicketModel(1,"Padangbai","Kusamba","PDB","KSB","Beroperasi","Beroperasi","Dermaga 1","Dermaga Kusamba","60 Menit","15-03-2022","Selasa","75.000","Caspla","09:00","10:00"));
-        ticketModelList.add(new TicketModel(2,"Kusamba","Padangbai","KSB","PDB","Beroperasi","Beroperasi","Dermaga Kusamba","Dermaga 1","60 Menit","15-03-2022","Selasa","75.000","Caspla","10:30","11:30"));
-        ticketModelList.add(new TicketModel(3,"Sanur","Nusa Penida","SNR","NPD","Beroperasi","Beroperasi","Dermaga Sanur","Dermaga Nusa Penida","30 Menit","15-03-2022","Selasa","95.000","Mola Mola","09:00","09:30"));
-        ticketModelList.add(new TicketModel(4,"Nusa Penida","Sanur","NPD","SNR","Beroperasi","Beroperasi","Dermaga Nusa Penida","Dermaga Sanur","30 Menit","15-03-2022","Selasa","95.000","Mola Mola","09:00","10:30"));
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.shared_preference),Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString(getString(R.string.token), "");
+        TicketService ticketService = RetrofitClient.getRetrofitInstance().create(TicketService.class);
+        Call<List<TicketModel>> call = ticketService.getTicketData(token,"application/json","XMLHttpRequest",idGolongan,asal_pelabuhan, tujuan_pelabuhan, date, tipe_kapal);
+        call.enqueue(new Callback<List<TicketModel>>() {
+            @Override
+            public void onResponse(Call<List<TicketModel>> call, Response<List<TicketModel>> response) {
+                if (response.isSuccessful()){
+                    startRecycler(response.body());
+                } else {
+                    Toast.makeText(getApplicationContext(), "Mohon persiksa internet anda!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<TicketModel>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Mohon persiksa internet anda!", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
     @Override
-    public void onClickPilihTiket(Class a) {
-        Intent intent = new Intent(this, a);
+    public void onClickPilihTiket(Class classTarget, TicketModel ticketModel) {
+        Intent intent = new Intent(this, classTarget);
+        intent.putExtra("Ticket",ticketModel);
+        intent.putExtra("jumlah_penumpang",jumlah_penumpang);
         startActivity(intent);
     }
 }

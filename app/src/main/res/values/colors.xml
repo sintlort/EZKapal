@@ -15,4 +15,6 @@
     <color name="super_light_grey">#ededed</color>
     <color name="red">#FF0000</color>
     <color name="green">#00A300</color>
+
+    <color name="orange_dark">#ffff8800</color>
 </resources>

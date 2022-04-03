@@ -44,7 +44,7 @@
             android:drawableStart="@drawable/custom_plate_number_input"
             android:drawablePadding="10dp"
             android:paddingStart="10dp"
-            android:hint="@string/nomor_ktp"
+            android:hint="@string/nomor_telepon_placeholder"
             android:textSize="11sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/input_nama_penumpang"/>

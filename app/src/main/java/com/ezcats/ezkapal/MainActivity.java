@@ -1,17 +1,29 @@
 package com.ezcats.ezkapal;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
+import com.ezcats.ezkapal.Activity.CaptureActivity;
 import com.ezcats.ezkapal.Adapter.BeritaAdapter;
 import com.ezcats.ezkapal.Model.BeritaModel;
 import com.ezcats.ezkapal.databinding.ActivityMainBinding;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
 
     CountDownTimer countDownTimer;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +41,16 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        replaceFragment(new home_fragment());
+        sharedPreferences = getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE);
+        String type_account = sharedPreferences.getString(getString(R.string.type_account), "");
 
-        countDownTimer = new CountDownTimer(2000, 1000) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.frameLayoutID, new home_fragment_without_shimmer());
+        ft.addToBackStack(null);
+        ft.commit();
+
+/*        countDownTimer = new CountDownTimer(2000, 1000) {
             @Override
             public void onTick(long l) {
 
@@ -40,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 replaceFragment(new home_fragment_without_shimmer());
             }
-        }.start();
+        }.start();*/
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
@@ -59,6 +79,23 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
+        binding.fabButton.setVisibility(View.GONE);
+        if(type_account.equals("PAdmin") || type_account.equals("HAdmin")){
+            Log.d("TYPE_ACCOUNT", "TESTCLICKQR: "+type_account);
+            binding.fabButton.setVisibility(View.VISIBLE);
+            binding.fabButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    IntentIntegrator intentIntegrator = new IntentIntegrator(MainActivity.this);
+                    intentIntegrator.setPrompt("Flash tekan volume atas!");
+                    intentIntegrator.setBeepEnabled(true);
+                    intentIntegrator.setOrientationLocked(true);
+                    intentIntegrator.setCaptureActivity(CaptureActivity.class);
+                    intentIntegrator.initiateScan();
+                }
+            });
+        }
+
     }
 
     public void replaceFragment(Fragment fragment){
@@ -69,4 +106,23 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        if(intentResult.getContents()!= null){
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Result");
+            builder.setMessage(intentResult.getContents());
+            builder.setPositiveButton("Verifikasi", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.dismiss();
+                }
+            });
+            builder.show();
+        } else {
+            Toast.makeText(MainActivity.this, "QRCode tidak ditemukan!", Toast.LENGTH_LONG).show();
+        }
+    }
 }

@@ -2,4 +2,13 @@
 <resources>
     <dimen name="penumpang_width">350dp</dimen>
     <dimen name="penumpang_height">240dp</dimen>
+
+    <dimen name="batal_transaksi_height">200dp</dimen>
+    <dimen name="batal_transaksi_width">300dp</dimen>
+
+    <dimen name="upload_transaksi_height">200dp</dimen>
+    <dimen name="upload_transaksi_width">370dp</dimen>
+
+    <dimen name="logout_width">300dp</dimen>
+    <dimen name="logout_height">220dp</dimen>
 </resources>

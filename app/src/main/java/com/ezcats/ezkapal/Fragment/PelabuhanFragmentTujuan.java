@@ -2,22 +2,30 @@ package com.ezcats.ezkapal.Fragment;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ezcats.ezkapal.APIClient.RetrofitClient;
+import com.ezcats.ezkapal.APIClient.Service.PelabuhanService;
 import com.ezcats.ezkapal.Adapter.PelabuhanAdapter;
 import com.ezcats.ezkapal.Model.PelabuhanModel;
 import com.ezcats.ezkapal.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PelabuhanFragmentTujuan extends DialogFragment implements PelabuhanAdapter.OnPelabuhanListener{
 
@@ -61,21 +69,36 @@ public class PelabuhanFragmentTujuan extends DialogFragment implements Pelabuhan
         recyclerView = v.findViewById(R.id.pelabuhan_recycler);
 
         initData();
-        startRecycler();
 
         return v;
     }
 
     private void initData() {
-        pelabuhanModelList = new ArrayList<>();
-        pelabuhanModelList.add(new PelabuhanModel(1, "Pelabuhan 1", "Beroperasi", "AFF", "Kapal", "5", "Jalan Raya Sesetan Gang Gumuk Sari", "aaaaaa"));
-        pelabuhanModelList.add(new PelabuhanModel(2, "Pelabuhan 2", "Beroperasi", "AFS", "Kapal & Speedboat", "2", "Jalan Raya Sesetan Gang Gumuk Sari", "aaaaaa"));
-        pelabuhanModelList.add(new PelabuhanModel(3, "Pelabuhan 3", "Beroperasi", "AFD", "Speedboat", "1", "Jalan Raya Sesetan Gang Gumuk Sari", "aaaaaa"));
-        pelabuhanModelList.add(new PelabuhanModel(4, "Pelabuhan 4", "Beroperasi", "AFG", "Kapal", "3", "Jalan Raya Sesetan Gang Gumuk Sari", "aaaaaa"));
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getString(R.string.shared_preference),Context.MODE_PRIVATE);
+        String token = sharedPreferences.getString(getString(R.string.token), "");
+        if(!token.equals("")){
+            PelabuhanService service = RetrofitClient.getRetrofitInstance().create(PelabuhanService.class);
+            Call<List<PelabuhanModel>> call = service.getListPelabuhan("application/json","XMLHttpRequest","application/json","Bearer "+token);
+            call.enqueue(new Callback<List<PelabuhanModel>>() {
+                @Override
+                public void onResponse(Call<List<PelabuhanModel>> call, Response<List<PelabuhanModel>> response) {
+                    startRecycler(response.body());
+                }
+
+                @Override
+                public void onFailure(Call<List<PelabuhanModel>> call, Throwable t) {
+                    Toast.makeText(getContext(), "Harap memeriksa koneksi internet anda", Toast.LENGTH_LONG).show();
+                }
+
+
+            });
+        }else {
+            Toast.makeText(getContext(), "Harap login terlebih dahulu", Toast.LENGTH_LONG).show();
+        }
     }
 
-    private void startRecycler() {
-        PelabuhanAdapter pelabuhanAdapter = new PelabuhanAdapter(pelabuhanModelList, this::OnPelabuhanClick);
+    private void startRecycler(List<PelabuhanModel> body) {
+        PelabuhanAdapter pelabuhanAdapter = new PelabuhanAdapter(body, this::OnPelabuhanClick);
         recyclerView.setAdapter(pelabuhanAdapter);
         recyclerView.setHasFixedSize(true);
     }

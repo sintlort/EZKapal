@@ -1,9 +1,25 @@
 package com.ezcats.ezkapal.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class PelabuhanModel {
 
+    @SerializedName("id")
     private int idPelabuhan;
-    private String namaPelabuhan, statusPelabuhan, kodePelabuhan, tipePelabuhan, lamaBeroperasi, alamatPelabuhan, fotoPelabuhan;
+    @SerializedName("kode_pelabuhan")
+    private String kodePelabuhan;
+    @SerializedName("nama_pelabuhan")
+    private String namaPelabuhan;
+    @SerializedName("status")
+    private String statusPelabuhan;
+    @SerializedName("tipe_pelabuhan")
+    private String tipePelabuhan;
+    @SerializedName("lama_beroperasi")
+    private String lamaBeroperasi;
+    @SerializedName("alamat_kantor")
+    private String alamatPelabuhan;
+    @SerializedName("foto")
+    private String fotoPelabuhan;
     private boolean expandable;
 
     public PelabuhanModel(int idPelabuhan, String namaPelabuhan, String statusPelabuhan, String kodePelabuhan, String tipePelabuhan, String lamaBeroperasi, String alamatPelabuhan, String fotoPelabuhan) {

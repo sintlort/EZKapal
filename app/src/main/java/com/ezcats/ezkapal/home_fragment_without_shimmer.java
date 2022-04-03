@@ -1,9 +1,16 @@
 package com.ezcats.ezkapal;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,9 +18,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ezcats.ezkapal.Activity.CaptureActivity;
 import com.ezcats.ezkapal.Adapter.BeritaAdapter;
 import com.ezcats.ezkapal.Model.BeritaModel;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +35,7 @@ public class home_fragment_without_shimmer extends Fragment {
     List<BeritaModel> beritaModelPelabuhan = new ArrayList<>();
 
     RecyclerView beritaKapal, beritaPelabuhan;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

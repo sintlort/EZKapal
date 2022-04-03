@@ -44,7 +44,6 @@
     <string name="pemesan">Pemesan</string>
     <string name="penumpang">Penumpang</string>
     <string name="nama_penumpang">Nama Penumpang</string>
-    <string name="nomor_ktp">Nomor KTP</string>
     <string name="masukan_penumpang">Masukan Penumpang</string>
     <string name="kapal">Caspla</string>
     <string name="waktu_pembayaran">Waktu Pembayaran : </string>
@@ -52,10 +51,54 @@
     <string name="terbayar">Terbayarkan</string>
     <string name="tidak_terbayar">Tidak Terbayarkan</string>
     <string name="ditolak">Ditolak</string>
+    <string name="metode_pembayaran">Metode Pembayaran</string>
+    <string name="pilih_metode">Pilih Metode Pembayaran</string>
+    <string name="nomor_rekening">1213124123</string>
+    <string name="metode">Transfer manual</string>
+    <string name="nomor_telepon_placeholder">Nomor Telepon</string>
+
+    <integer name="minPenumpang">1</integer>
+    <integer name="maxPenumpang">10</integer>
+
+    <string name="company_name">E-Tiket Pelabuhan</string>
+    <string name="slogan">Transportasi Air mudah yang kamu butuhkan</string>
+
+    <string name="login_placeholder">Login</string>
+    <string name="username_placeholder">Username</string>
+    <string name="password_placeholder">Password</string>
+    <string name="nama_placeholder">Nama Anda</string>
+    <string name="email_placeholder">Email Anda</string>
+    <string name="alamat_placeholder">Alamat Anda</string>
+    <string name="nohp_placeholder">Nomor Handphone</string>
+    <string name="btn_login">Sign In</string>
+    <string name="btn_register">Sign Up</string>
+
+    <string name="pemesanan_sukses">Pemesanan Sukses</string>
+    <string name="pemesanan_sukses_text">Terima kasih telah memesan E-Tiket, harap membayar pesanan sebelum waktu habis</string>
+
+    <string name="lanjutkan">Lanjutkan</string>
+
+    <string name="edit_profile">Edit Profile >></string>
+
+    <string name="transaksi">Transaksi</string>
+    <string name="transaksi_terkini">Transaksi Terkini</string>
+    <string name="history_transaksi">Riwayat Transaksi</string>
+    <string name="hubungi_kami">Hubungi Kami</string>
+    <string name="logout">Logout</string>
+    <string name="batal">Batal</string>
+    <string name="batalkan">Batalkan</string>
+    <string name="upload_transaksi">Upload Bukti Pembayaran</string>
+    <string name="upload_ulang">Upload Kembali</string>
+    <string name="pilih_file">Pilih File</string>
+    <string name="upload">Upload</string>
+    <string name="batal_transaksi">Batalkan Pemesanan</string>
+
+    <string name="token">token</string>
+    <string name="type_account">type_account</string>
+    <string name="shared_preference">tokenSharedPreference</string>
 
 
     <string-array name="service_type">
-        <item>Tipe Jasa</item>
         <item>Penumpang</item>
         <item>Kendaraan</item>
     </string-array>

@@ -1,9 +1,58 @@
 package com.ezcats.ezkapal.Model;
 
-public class TicketModel {
+import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
+public class TicketModel implements Serializable {
+
+    @SerializedName("id")
     private int id_detail;
-    private String nama_asal, nama_tujuan, kode_pelabuhan_asal, kode_pelabuhan_tujuan, status_asal, status_tujuan, dermaga_asal, dermaga_tujuan, estimasi_waktu, tanggal, hari, harga, nama_kapal, waktu_berangkat_asal, waktu_berangkat_tujuan;
+
+    @SerializedName("nama_asal")
+    private String nama_asal;
+
+    @SerializedName("nama_tujuan")
+    private String nama_tujuan;
+
+    @SerializedName("kode_pelabuhan_asal")
+    private String kode_pelabuhan_asal;
+
+    @SerializedName("kode_pelabuhan_tujuan")
+    private String kode_pelabuhan_tujuan;
+
+    @SerializedName("status_asal")
+    private String status_asal;
+
+    @SerializedName("status_tujuan")
+    private String status_tujuan;
+
+    @SerializedName("dermaga_asal")
+    private String dermaga_asal;
+
+    @SerializedName("dermaga_tujuan")
+    private String dermaga_tujuan;
+
+    @SerializedName("estimasi_waktu")
+    private String estimasi_waktu;
+
+    @SerializedName("tanggal")
+    private String tanggal;
+
+    @SerializedName("hari")
+    private String hari;
+
+    @SerializedName("harga")
+    private String harga;
+
+    @SerializedName("nama_kapal")
+    private String nama_kapal;
+
+    @SerializedName("waktu_berangkat_asal")
+    private String waktu_berangkat_asal;
+
+    @SerializedName("waktu_berangkat_tujuan")
+    private String waktu_berangkat_tujuan;
 
     public TicketModel(int id_detail, String nama_asal, String nama_tujuan, String kode_pelabuhan_asal, String kode_pelabuhan_tujuan, String status_asal, String status_tujuan, String dermaga_asal, String dermaga_tujuan, String estimasi_waktu, String tanggal, String hari, String harga, String nama_kapal, String waktu_berangkat_asal, String waktu_berangkat_tujuan) {
         this.id_detail = id_detail;

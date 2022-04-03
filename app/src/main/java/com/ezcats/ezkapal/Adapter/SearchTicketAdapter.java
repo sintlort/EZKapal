@@ -83,13 +83,14 @@ public class SearchTicketAdapter extends RecyclerView.Adapter<SearchTicketAdapte
             mBtnPilih.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    onPilihTiketListener.onClickPilihTiket(DetailPesanan.class);
+                    TicketModel ticketModel = mTicketModelList.get(getAdapterPosition());
+                    onPilihTiketListener.onClickPilihTiket(DetailPesanan.class, ticketModel);
                 }
             });
         }
     }
 
     public interface OnPilihTiketListener{
-        void onClickPilihTiket(Class a);
+        void onClickPilihTiket(Class classTarget, TicketModel ticketModel);
     }
 }

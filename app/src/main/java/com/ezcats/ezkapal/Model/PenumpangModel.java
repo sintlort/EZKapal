@@ -1,8 +1,15 @@
 package com.ezcats.ezkapal.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class PenumpangModel {
 
-    public String namaPenumpang, ktpPenumpang;
+    @SerializedName("nama_pemegang_tiket")
+    public String namaPenumpang;
+
+    @SerializedName("no_id_card")
+    public String ktpPenumpang;
+
 
     public PenumpangModel(String namaPenumpang, String ktpPenumpang) {
         this.namaPenumpang = namaPenumpang;
