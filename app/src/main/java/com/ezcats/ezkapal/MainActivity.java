@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.fabButton.setVisibility(View.GONE);
-        if(type_account.equals("PAdmin") || type_account.equals("HAdmin")){
+        if(type_account.equals("TAdmin")){
             Log.d("TYPE_ACCOUNT", "TESTCLICKQR: "+type_account);
             binding.fabButton.setVisibility(View.VISIBLE);
             binding.fabButton.setOnClickListener(new View.OnClickListener() {
