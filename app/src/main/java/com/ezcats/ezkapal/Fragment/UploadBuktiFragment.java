@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -67,6 +69,7 @@ public class UploadBuktiFragment extends DialogFragment {
             float width = getResources().getDimension(R.dimen.upload_transaksi_width);
             float height = getResources().getDimension(R.dimen.upload_transaksi_height);
             dialog.getWindow().setLayout(Math.round(width), Math.round(height));
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
     }
     @Override

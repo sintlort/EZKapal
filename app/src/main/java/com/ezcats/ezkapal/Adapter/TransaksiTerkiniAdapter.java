@@ -1,5 +1,7 @@
 package com.ezcats.ezkapal.Adapter;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ezcats.ezkapal.Model.MetodePembayaranModel;
@@ -19,10 +22,12 @@ public class TransaksiTerkiniAdapter extends RecyclerView.Adapter<TransaksiTerki
 
     List<TransaksiModel> transaksiModels;
     OnTerkiniClick onTerkiniClick;
+    Context context;
 
-    public TransaksiTerkiniAdapter(List<TransaksiModel> transaksiModelList, OnTerkiniClick onTerkiniClick) {
+    public TransaksiTerkiniAdapter(List<TransaksiModel> transaksiModelList, OnTerkiniClick onTerkiniClick, Context context) {
         this.transaksiModels = transaksiModelList;
         this.onTerkiniClick = onTerkiniClick;
+        this.context = context;
     }
 
     @NonNull
@@ -43,6 +48,13 @@ public class TransaksiTerkiniAdapter extends RecyclerView.Adapter<TransaksiTerki
         holder.secondDermaga.setText(transaksiModel.getDermaga_tujuan());
         holder.firstClock.setText(transaksiModel.getWaktu_berangkat_asal());
         holder.secondClock.setText(transaksiModel.getWaktu_berangkat_tujuan());
+        if(transaksiModel.getStatus().equals("dibatalkan") || transaksiModel.getStatus().equals("expired")){
+            holder.ColorStatusTransaksi.setBackgroundColor(context.getResources().getColor(R.color.red, null));
+        }else if (transaksiModel.getStatus().equals("menunggu konfirmasi") || transaksiModel.getStatus().equals("menunggu pembayaran")){
+            holder.ColorStatusTransaksi.setBackgroundColor(context.getResources().getColor(R.color.light_blue, null));
+        } else if(transaksiModel.getStatus().equals("digunakan") || transaksiModel.getStatus().equals("terkonfirmasi")){
+            holder.ColorStatusTransaksi.setBackgroundColor(context.getResources().getColor(R.color.green, null));
+        }
     }
 
     @Override
@@ -52,6 +64,7 @@ public class TransaksiTerkiniAdapter extends RecyclerView.Adapter<TransaksiTerki
 
     public class TransaksiTerkiniViewHolder extends RecyclerView.ViewHolder {
         TextView firstPelabuhan, secondPelabuhan, firstCode, secondCode, firstDermaga, secondDermaga, firstClock, secondClock, date;
+        ConstraintLayout ColorStatusTransaksi;
 
         CardView cardView;
         public TransaksiTerkiniViewHolder(@NonNull View itemView, OnTerkiniClick onTerkiniClick) {
@@ -66,6 +79,7 @@ public class TransaksiTerkiniAdapter extends RecyclerView.Adapter<TransaksiTerki
             firstClock = itemView.findViewById(R.id.first_start_clock_t);
             secondClock = itemView.findViewById(R.id.second_start_clock_t);
             cardView = itemView.findViewById(R.id.card_transaksi);
+            ColorStatusTransaksi = itemView.findViewById(R.id.color_status_transaksi);
 
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override

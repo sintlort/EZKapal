@@ -21,9 +21,13 @@ import com.ezcats.ezkapal.APIClient.RetrofitClient;
 import com.ezcats.ezkapal.APIClient.Service.TransactionService;
 import com.ezcats.ezkapal.Activity.CaptureActivity;
 import com.ezcats.ezkapal.Adapter.BeritaAdapter;
+import com.ezcats.ezkapal.Fragment.LogoutFragment;
+import com.ezcats.ezkapal.Fragment.VerifikasiFragment;
 import com.ezcats.ezkapal.Model.BeritaModel;
+import com.ezcats.ezkapal.Model.PemegangTicketModel;
 import com.ezcats.ezkapal.databinding.ActivityMainBinding;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.gson.Gson;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -77,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
 
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.bot_frag_home:
                     replaceFragment(new home_fragment_without_shimmer());
                     break;
@@ -93,15 +97,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.fabButton.setVisibility(View.GONE);
-        if(type_account.equals("PAdmin") || type_account.equals("HAdmin")){
-            Log.d("TYPE_ACCOUNT", "TESTCLICKQR: "+type_account);
+        if (type_account.equals("PAdmin") || type_account.equals("HAdmin")) {
+            Log.d("TYPE_ACCOUNT", "TESTCLICKQR: " + type_account);
             binding.fabButton.setVisibility(View.VISIBLE);
             binding.fabButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     IntentIntegrator intentIntegrator = new IntentIntegrator(MainActivity.this);
                     intentIntegrator.setPrompt("Flash tekan volume atas!");
-                    intentIntegrator.setBeepEnabled(true);
                     intentIntegrator.setOrientationLocked(true);
                     intentIntegrator.setCaptureActivity(CaptureActivity.class);
                     intentIntegrator.initiateScan();
@@ -111,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void replaceFragment(Fragment fragment){
+    public void replaceFragment(Fragment fragment) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.replace(R.id.frameLayoutID, fragment);
@@ -122,46 +125,62 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
-        if(intentResult.getContents()!= null){
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            builder.setTitle("Result");
-            builder.setMessage("Verifikasi ticket ini?");
-            builder.setPositiveButton("Verifikasi", new DialogInterface.OnClickListener() {
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (intentResult.getContents() != null) {
+            Log.d("QRCODEDATA", "onActivityResult: CODE "+intentResult.getContents());
+            TransactionService transactionService = RetrofitClient.getRetrofitInstance().create(TransactionService.class);
+            Call<ResponseBody> call = transactionService.getTicketData(token, "application/json", "XMLHttpRequest", intentResult.getContents());
+            call.enqueue(new Callback<ResponseBody>() {
                 @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    TransactionService transactionService = RetrofitClient.getRetrofitInstance().create(TransactionService.class);
-                    Call<ResponseBody> call = transactionService.checkTicket(token,"application/json", "XMLHttpRequest",intentResult.getContents());
-                    call.enqueue(new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            if(response.isSuccessful()){
-                                if(response.code()==200){
-                                    try {
-                                        JSONObject jsonObject = new JSONObject(response.body().string());
-                                        String message = jsonObject.getString("message");
-                                        if(message.equals("success")){
-                                            Toast.makeText(getApplicationContext(), "Tiket telah diverifikasi", Toast.LENGTH_LONG).show();
-                                        } else {
-                                            Toast.makeText(getApplicationContext(), "Tiket tidak ditemukan atau sudah digunakan", Toast.LENGTH_LONG).show();
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()) {
+                        if (response.code() == 200) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.body().string());
+                                String message = jsonObject.getString("message");
+                                if (message.equals("success")) {
+                                    JSONObject dataObject = jsonObject.getJSONObject("data");
+                                    PemegangTicketModel pemegangTicketModel =
+                                            new PemegangTicketModel(dataObject.getInt("id_detail_pembelian"),
+                                                    dataObject.getInt("id_pembelian"),
+                                                    dataObject.getString("nama_pemegang_tiket"),
+                                                    dataObject.getString("kode_tiket"),
+                                                    dataObject.getString("status"),
+                                                    dataObject.getString("tanggal"));
+                                    VerifikasiFragment verifikasiFragment = new VerifikasiFragment();
+                                    Bundle bundle = new Bundle();
+                                    bundle.putSerializable("ticket_info", pemegangTicketModel);
+                                    bundle.putString("intentResults", intentResult.getContents());
+                                    verifikasiFragment.setArguments(bundle);
+                                    verifikasiFragment.show(getSupportFragmentManager(), "VERIFIKASI_FRAGMENT");
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Informasi tiket tidak ditemukan", Toast.LENGTH_SHORT).show();
                                 }
+                            } catch (JSONException e) {
+                                Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali, \njika kesalahan terjadi berulang, harap menghubungi administrator", Toast.LENGTH_SHORT).show();
+                                Log.d("GET TICKET DATA", "onResponse: GET TICKET DATA API FAILED IOEXCEPTION");
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali, \njika kesalahan terjadi berulang, harap menghubungi administrator", Toast.LENGTH_SHORT).show();
+                                Log.d("GET TICKET DATA", "onResponse: GET TICKET DATA API FAILED IOEXCEPTION");
+                                e.printStackTrace();
                             }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
+                            Log.d("GET TICKET DATA", "onResponse: GET TICKET DATA API NOT 200");
                         }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
+                        Log.d("GET TICKET DATA", "onResponse: GET TICKET DATA API NOT SUCCESSFUL");
+                    }
+                }
 
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                        }
-                    });
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
+                    Log.d("GET TICKET DATA", "onResponse: GET TICKET DATA API ON FAILURE");
                 }
             });
-            builder.show();
         } else {
             Toast.makeText(MainActivity.this, "QRCode tidak ditemukan!", Toast.LENGTH_LONG).show();
         }

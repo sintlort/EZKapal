@@ -3,6 +3,8 @@ package com.ezcats.ezkapal.Fragment;
 import android.app.Dialog;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -50,6 +52,7 @@ public class PenumpangFragment extends DialogFragment {
             float width = getResources().getDimension(R.dimen.penumpang_width);
             float height = getResources().getDimension(R.dimen.penumpang_height);
             dialog.getWindow().setLayout(Math.round(width), Math.round(height));
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
     }
 

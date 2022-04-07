@@ -65,7 +65,7 @@ public class TransaksiTerkiniActivity extends AppCompatActivity implements Trans
     }
 
     private void initRecycler(List<TransaksiModel> transaksiModels) {
-        TransaksiTerkiniAdapter transaksiTerkiniAdapter = new TransaksiTerkiniAdapter(transaksiModels, this::onClick);
+        TransaksiTerkiniAdapter transaksiTerkiniAdapter = new TransaksiTerkiniAdapter(transaksiModels, this::onClick, getApplicationContext());
         recyclerView.setAdapter(transaksiTerkiniAdapter);
     }
 

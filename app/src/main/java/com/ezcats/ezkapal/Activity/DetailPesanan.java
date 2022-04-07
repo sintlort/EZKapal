@@ -113,10 +113,18 @@ public class DetailPesanan extends AppCompatActivity implements PenumpangAdapter
                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                     Log.d("PEMESANANAPI", "onResponse: success");
                                     try {
-                                        JSONObject object = new JSONObject(response.body().string());
-                                        JSONObject jsonObject = object.getJSONObject("data");
-                                        Log.d("PEMESANANAPI2", "onResponse: "+jsonObject.toString());
-                                        forPenumpang(pemesananService, token, Integer.parseInt(jsonObject.getString("id")));
+                                        if(response.isSuccessful()){
+                                            if(response.code()==200){
+                                                JSONObject object = new JSONObject(response.body().string());
+                                                JSONObject jsonObject = object.getJSONObject("data");
+                                                Log.d("PEMESANANAPI2", "onResponse: "+jsonObject.toString());
+                                                forPenumpang(pemesananService, token, Integer.parseInt(jsonObject.getString("id")));
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan", Toast.LENGTH_SHORT).show();
+                                            }
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
+                                        }
                                     } catch (JSONException | IOException e) {
                                         e.printStackTrace();
                                     }

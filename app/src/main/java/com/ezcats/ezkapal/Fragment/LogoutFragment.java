@@ -3,6 +3,8 @@ package com.ezcats.ezkapal.Fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -57,6 +59,7 @@ public class LogoutFragment extends DialogFragment {
             float width = getResources().getDimension(R.dimen.logout_width);
             float height = getResources().getDimension(R.dimen.logout_height);
             dialog.getWindow().setLayout(Math.round(width), Math.round(height));
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
     }
 

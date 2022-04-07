@@ -3,6 +3,8 @@ package com.ezcats.ezkapal.Fragment;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,10 +16,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.ezcats.ezkapal.APIClient.RetrofitClient;
 import com.ezcats.ezkapal.APIClient.Service.TransactionService;
 import com.ezcats.ezkapal.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -56,6 +64,7 @@ public class BatalkanTransaksiFragment extends DialogFragment {
             float width = getResources().getDimension(R.dimen.batal_transaksi_width);
             float height = getResources().getDimension(R.dimen.batal_transaksi_height);
             dialog.getWindow().setLayout(Math.round(width), Math.round(height));
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
     }
 
@@ -79,8 +88,21 @@ public class BatalkanTransaksiFragment extends DialogFragment {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()){
                             if(response.code() == 200){
-                                statusPembatalan.checkStatus("dibatalkan");
-                                getDialog().dismiss();
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response.body().string());
+                                    String message = jsonObject.getString("message");
+                                    if(message.equals("failed")){
+                                        Toast.makeText(getContext(), "Beberapa tiket telah digunakan", Toast.LENGTH_LONG).show();
+                                        getDialog().dismiss();
+                                    } else {
+                                        statusPembatalan.checkStatus("dibatalkan");
+                                        getDialog().dismiss();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     }

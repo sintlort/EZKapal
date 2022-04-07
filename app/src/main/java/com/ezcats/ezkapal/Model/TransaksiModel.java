@@ -54,6 +54,9 @@ public class TransaksiModel implements Serializable {
     @SerializedName("harga")
     private String harga;
 
+    @SerializedName("file_tiket")
+    private String file_tiket;
+
     @SerializedName("nama_kapal")
     private String nama_kapal;
 
@@ -69,7 +72,7 @@ public class TransaksiModel implements Serializable {
     @SerializedName("nomor_rekening")
     private String nomor_rekening;
 
-    public TransaksiModel(int id_detail, int id_metode_pembayaran, String nama_asal, String nama_tujuan, String kode_pelabuhan_asal, String kode_pelabuhan_tujuan, String status_asal, String status_tujuan, String dermaga_asal, String dermaga_tujuan, String estimasi_waktu, String tanggal, String hari, String harga, String nama_kapal, String waktu_berangkat_asal, String waktu_berangkat_tujuan, String metode_pembayaran, String nomor_rekening, String bukti, String status) {
+    public TransaksiModel(int id_detail, int id_metode_pembayaran, String nama_asal, String nama_tujuan, String kode_pelabuhan_asal, String kode_pelabuhan_tujuan, String status_asal, String status_tujuan, String dermaga_asal, String dermaga_tujuan, String estimasi_waktu, String tanggal, String hari, String harga, String nama_kapal, String waktu_berangkat_asal, String waktu_berangkat_tujuan, String metode_pembayaran, String nomor_rekening, String bukti, String status, String file_tiket) {
         this.id_detail = id_detail;
         this.id_metode_pembayaran = id_metode_pembayaran;
         this.nama_asal = nama_asal;
@@ -91,6 +94,15 @@ public class TransaksiModel implements Serializable {
         this.nomor_rekening = nomor_rekening;
         this.bukti = bukti;
         this.status = status;
+        this.file_tiket = file_tiket;
+    }
+
+    public String getFile_tiket() {
+        return file_tiket;
+    }
+
+    public void setFile_tiket(String file_tiket) {
+        this.file_tiket = file_tiket;
     }
 
     public int getId_detail() {
@@ -280,6 +292,7 @@ public class TransaksiModel implements Serializable {
                 ", bukti='" + bukti + '\'' +
                 ", hari='" + hari + '\'' +
                 ", harga='" + harga + '\'' +
+                ", file_tiket='" + file_tiket + '\'' +
                 ", nama_kapal='" + nama_kapal + '\'' +
                 ", waktu_berangkat_asal='" + waktu_berangkat_asal + '\'' +
                 ", waktu_berangkat_tujuan='" + waktu_berangkat_tujuan + '\'' +

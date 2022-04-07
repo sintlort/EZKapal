@@ -27,6 +27,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/status_transaksi"
+                style="@style/PembelianTextPrimary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="@string/status_transaksi"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/first_card"
                 android:layout_width="match_parent"
@@ -291,17 +301,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/penumpang" />
 
-            <Button
-                android:id="@+id/upload_bukti_pembayaran"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginHorizontal="40dp"
-                android:layout_marginVertical="20dp"
-                android:text="@string/upload_transaksi"
-                android:backgroundTint="@color/orange_dark"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/card_view_metode_pembayaran_transaksi" />
-
             <TextView
                 android:id="@+id/metode_pembayaran_text"
                 style="@style/PembelianTextPrimary"
@@ -358,16 +357,55 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/batalkan_transaksi"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_button_transaksi"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginHorizontal="40dp"
-                android:layout_marginVertical="5dp"
-                android:text="@string/batal_transaksi"
-                android:backgroundTint="@android:color/holo_red_dark"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/card_view_metode_pembayaran_transaksi"
+                app:layout_constraintStart_toStartOf="parent">
+                <Button
+                    android:id="@+id/upload_bukti_pembayaran"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginHorizontal="40dp"
+                    android:layout_marginVertical="20dp"
+                    android:text="@string/upload_transaksi"
+                    android:backgroundTint="@color/orange_dark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/batalkan_transaksi"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginHorizontal="40dp"
+                    android:layout_marginVertical="5dp"
+                    android:text="@string/batal_transaksi"
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/upload_bukti_pembayaran" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <Button
+                android:id="@+id/button_ticket_file"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/constraint_button_transaksi"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/upload_bukti_pembayaran" />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:backgroundTint="@color/green"
+                android:text="@string/ticket_btn"
+                android:layout_marginHorizontal="40dp"/>
+
+            <Button
+                android:id="@+id/button_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/button_ticket_file"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/review"
+                android:layout_marginHorizontal="40dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

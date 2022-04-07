@@ -1,6 +1,8 @@
 package com.ezcats.ezkapal.APIClient.Service;
 
+import com.ezcats.ezkapal.Model.PemegangTicketModel;
 import com.ezcats.ezkapal.Model.PenumpangModel;
+import com.ezcats.ezkapal.Model.TicketModel;
 import com.ezcats.ezkapal.Model.TransaksiModel;
 
 import java.util.List;
@@ -35,14 +37,52 @@ public interface TransactionService {
     @FormUrlEncoded
     @POST("transaction/cancel")
     Call<ResponseBody> cancelPemesanan(@Header("Authorization") String authHeader,
-                                    @Header("Accept") String type,
-                                    @Header("X-Requested-With") String request,
-                                    @Field("id") int id_pembelian);
+                                       @Header("Accept") String type,
+                                       @Header("X-Requested-With") String request,
+                                       @Field("id") int id_pembelian);
 
     @FormUrlEncoded
     @POST("check/ticket")
     Call<ResponseBody> checkTicket(@Header("Authorization") String authHeader,
-                                       @Header("Accept") String type,
-                                       @Header("X-Requested-With") String request,
-                                       @Field("ticket_number") String ticket_number);
+                                   @Header("Accept") String type,
+                                   @Header("X-Requested-With") String request,
+                                   @Field("ticket_number") String ticket_number,
+                                   @Field("tanggal") String tanggal);
+
+    @FormUrlEncoded
+    @POST("check/ticket/data")
+    Call<ResponseBody> getTicketData(@Header("Authorization") String authHeader,
+                                     @Header("Accept") String type,
+                                     @Header("X-Requested-With") String request,
+                                     @Field("ticket_number") String ticket_number);
+
+    @FormUrlEncoded
+    @POST("review/post")
+    Call<ResponseBody> sendReview(@Header("Authorization") String authHeader,
+                                  @Header("Accept") String type,
+                                  @Header("X-Requested-With") String request,
+                                  @Field("id_pembelian") int id_pembelian,
+                                  @Field("isi_review") String isi_review,
+                                  @Field("score") int score);
+
+    @FormUrlEncoded
+    @POST("review/get")
+    Call<ResponseBody> getReview(@Header("Authorization") String authHeader,
+                                 @Header("Accept") String type,
+                                 @Header("X-Requested-With") String request,
+                                 @Field("id_pembelian") int id_pembelian);
+
+    @FormUrlEncoded
+    @POST("review/delete")
+    Call<ResponseBody> deleteReview(@Header("Authorization") String authHeader,
+                                    @Header("Accept") String type,
+                                    @Header("X-Requested-With") String request,
+                                    @Field("id_pembelian") int id_pembelian);
+
+    @FormUrlEncoded
+    @POST("refresh/transaction")
+    Call<TransaksiModel> refreshTransaction(@Header("Authorization") String authHeader,
+                                         @Header("Accept") String type,
+                                         @Header("X-Requested-With") String request,
+                                         @Field("id_detail") int id_detail);
 }

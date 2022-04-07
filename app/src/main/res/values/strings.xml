@@ -35,12 +35,13 @@
     <string name="tidakBeroperasi">Tidak Beroperasi</string>
     <string name="start_clock">20:00</string>
     <string name="end_clock">21:00</string>
-    <string name="date">22-03-2022</string>
+    <string name="date">22 / 03 / 2022</string>
     <string name="days">Senin</string>
     <string name="dermaga">Dermaga</string>
     <string name="harga">50.000,-</string>
     <string name="rupiah">Rp. </string>
     <string name="detail_jadwal">Detail Jadwal</string>
+    <string name="status_transaksi">Status</string>
     <string name="pemesan">Pemesan</string>
     <string name="penumpang">Penumpang</string>
     <string name="nama_penumpang">Nama Penumpang</string>
@@ -92,6 +93,18 @@
     <string name="pilih_file">Pilih File</string>
     <string name="upload">Upload</string>
     <string name="batal_transaksi">Batalkan Pemesanan</string>
+    <string name="review">Review Layanan</string>
+    <string name="ticket_btn">Unduh Tiket</string>
+    <string name="kirim_review">Kirim Review !</string>
+    <string name="hapus_review">Hapus Review</string>
+    <string name="verifikasi_title">Verifikasi</string>
+    <string name="verifikasi_Button">Verifikasi !</string>
+    <string name="verifikasi_nama">Nama Pemegang Tiket : </string>
+    <string name="verifikasi_kode_tiket">Kode Tiket : </string>
+    <string name="verifikasi_status">Status Tiket : </string>
+    <string name="verifikasi_status_placeholder"> Not Used</string>
+    <string name="verifikasi_tanggal">Tanggal Tiket : </string>
+    <string name="kode_tiket">0000000000001</string>
 
     <string name="token">token</string>
     <string name="type_account">type_account</string>
