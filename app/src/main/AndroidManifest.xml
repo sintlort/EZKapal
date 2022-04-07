@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EZKapal">
         <activity android:name=".Activity.WebViewActivity"></activity>
+        <activity android:name=".AdminMainActivity"></activity>
         <activity android:name=".Activity.TransaksiActivity" />
         <activity android:name=".Activity.DetailTransaksiActivity" />
         <activity android:name=".Activity.RiwayatTransaksiActivity" />
