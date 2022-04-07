@@ -335,6 +335,7 @@ public class DetailTransaksiActivity extends AppCompatActivity implements Penump
     @Override
     public void checkStatus(String status) {
         Intent intent = new Intent(DetailTransaksiActivity.this, TransaksiTerkiniActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 

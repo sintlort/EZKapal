@@ -82,7 +82,10 @@ public class SearchTicketActivity extends AppCompatActivity implements SearchTic
     @Override
     public void onClickPilihTiket(Class classTarget, TicketModel ticketModel) {
         Intent intent = new Intent(this, classTarget);
-        intent.putExtra("Ticket",ticketModel);
+        TicketModel ticketModel1 = ticketModel;
+        int harga = Integer.parseInt(ticketModel1.getHarga()) * jumlah_penumpang;
+        ticketModel1.setHarga(String.valueOf(harga));
+        intent.putExtra("Ticket",ticketModel1);
         intent.putExtra("jumlah_penumpang",jumlah_penumpang);
         startActivity(intent);
     }

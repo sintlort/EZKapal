@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.ezcats.ezkapal.Activity.LandingActivity;
 import com.ezcats.ezkapal.Activity.RiwayatTransaksiActivity;
@@ -23,6 +24,7 @@ import com.ezcats.ezkapal.Fragment.PenumpangFragment;
 public class fragment_profile extends Fragment implements LogoutFragment.LogoutListener {
     CardView transaksiTerkini, transaksiRiwayat, hubungi, logout;
     SharedPreferences sharedPreferences;
+    TextView nameProfile;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,9 +34,11 @@ public class fragment_profile extends Fragment implements LogoutFragment.LogoutL
         transaksiRiwayat = v.findViewById(R.id.riwayat_transaksi);
         hubungi = v.findViewById(R.id.hubungi_kami);
         logout = v.findViewById(R.id.logout);
-
+        nameProfile = v.findViewById(R.id.profile_name);
+        String name;
         sharedPreferences = getActivity().getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE);
-
+        name = sharedPreferences.getString(getString(R.string.name_shared_preference),"");
+        nameProfile.setText(name);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

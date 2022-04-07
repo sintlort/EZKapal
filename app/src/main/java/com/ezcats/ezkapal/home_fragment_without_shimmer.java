@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,8 @@ public class home_fragment_without_shimmer extends Fragment {
 
     RecyclerView beritaKapal, beritaPelabuhan;
 
+    TextView nameText, emailText;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,6 +47,15 @@ public class home_fragment_without_shimmer extends Fragment {
 
         beritaKapal = v.findViewById(R.id.berita_kapal);
         beritaPelabuhan = v.findViewById(R.id.berita_pelabuhan);
+        nameText = v.findViewById(R.id.nameFragmentHome);
+        emailText = v.findViewById(R.id.emailFragmentHome);
+        String name,email,number;
+        SharedPreferences sharedPreferences;
+        sharedPreferences = getActivity().getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE);
+        name = sharedPreferences.getString(getString(R.string.name_shared_preference),"");
+        email = sharedPreferences.getString(getString(R.string.email_shared_preference),"");
+        nameText.setText(name);
+        emailText.setText(email);
         addBeritaData();
         beritaRecycler();
         return v;

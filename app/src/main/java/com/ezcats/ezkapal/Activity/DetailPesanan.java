@@ -107,7 +107,7 @@ public class DetailPesanan extends AppCompatActivity implements PenumpangAdapter
                         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.shared_preference),Context.MODE_PRIVATE);
                         String token = sharedPreferences.getString(getString(R.string.token), "");
                         PemesananService pemesananService = RetrofitClient.getRetrofitInstance().create(PemesananService.class);
-                            Call<ResponseBody> call = pemesananService.transactionCommited(token, "application/json","XMLHttpRequest",id_detail, id_metode, tanggal_input);
+                            Call<ResponseBody> call = pemesananService.transactionCommited(token, "application/json","XMLHttpRequest",id_detail,jumlah_penumpang, id_metode, tanggal_input);
                             call.enqueue(new Callback<ResponseBody>() {
                                 @Override
                                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -116,9 +116,15 @@ public class DetailPesanan extends AppCompatActivity implements PenumpangAdapter
                                         if(response.isSuccessful()){
                                             if(response.code()==200){
                                                 JSONObject object = new JSONObject(response.body().string());
-                                                JSONObject jsonObject = object.getJSONObject("data");
-                                                Log.d("PEMESANANAPI2", "onResponse: "+jsonObject.toString());
-                                                forPenumpang(pemesananService, token, Integer.parseInt(jsonObject.getString("id")));
+                                                String message = object.getString("message");
+                                                if(message.equals("success")){
+                                                    JSONObject jsonObject = object.getJSONObject("data");
+                                                    Log.d("PEMESANANAPI2", "onResponse: "+jsonObject.toString());
+                                                    forPenumpang(pemesananService, token, Integer.parseInt(jsonObject.getString("id")));
+                                                } else {
+                                                    Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
+                                                }
+
                                             } else {
                                                 Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan", Toast.LENGTH_SHORT).show();
                                             }
@@ -127,11 +133,12 @@ public class DetailPesanan extends AppCompatActivity implements PenumpangAdapter
                                         }
                                     } catch (JSONException | IOException e) {
                                         e.printStackTrace();
+                                        Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                                 @Override
                                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                                    Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
                                 }
                             });
 
@@ -154,11 +161,8 @@ public class DetailPesanan extends AppCompatActivity implements PenumpangAdapter
             call2.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Intent intent = new Intent(getApplicationContext(), PesananSukses.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                }
 
+                }
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
 
@@ -166,7 +170,9 @@ public class DetailPesanan extends AppCompatActivity implements PenumpangAdapter
             });
             i1++;
         }
-
+        Intent intent = new Intent(getApplicationContext(), PesananSukses.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private boolean checkPenumpangData(int jumlah) {

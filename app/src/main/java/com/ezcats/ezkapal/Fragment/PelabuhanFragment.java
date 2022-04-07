@@ -86,12 +86,23 @@ public class PelabuhanFragment extends DialogFragment implements PelabuhanAdapte
             call.enqueue(new Callback<List<PelabuhanModel>>() {
                 @Override
                 public void onResponse(Call<List<PelabuhanModel>> call, Response<List<PelabuhanModel>> response) {
-                    startRecycler(response.body());
+                    if(response.isSuccessful()){
+                        if (response.code()==200){
+                            startRecycler(response.body());
+                        } else {
+                            Toast.makeText(getContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
+                            Log.d("GET PELABUHAN DATA", "onResponse: GET PELABUHAN DATA API NOT 200");
+                        }
+                    } else {
+                        Toast.makeText(getContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
+                        Log.d("GET PELABUHAN DATA", "onResponse: GET PELABUHAN DATA API NOT SUCCESSFUL");
+                    }
                 }
 
                 @Override
                 public void onFailure(Call<List<PelabuhanModel>> call, Throwable t) {
-                    Toast.makeText(getContext(), "Harap memeriksa koneksi internet anda", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
+                    Log.d("GET PELABUHAN DATA", "onResponse: GET PELABUHAN DATA API ON FAILURE");
                 }
             });
         } else {

@@ -108,6 +108,9 @@
 
     <string name="token">token</string>
     <string name="type_account">type_account</string>
+    <string name="name_shared_preference">name</string>
+    <string name="email_shared_preference">email</string>
+    <string name="number_shared_preference">nohp</string>
     <string name="shared_preference">tokenSharedPreference</string>
 
 

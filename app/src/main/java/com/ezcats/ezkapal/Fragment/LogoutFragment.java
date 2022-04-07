@@ -99,6 +99,8 @@ public class LogoutFragment extends DialogFragment {
                             logoutListener.logout();
                             getDialog().dismiss();
                         }
+                        logoutListener.logout();
+                        getDialog().dismiss();
                     }
 
                     @Override

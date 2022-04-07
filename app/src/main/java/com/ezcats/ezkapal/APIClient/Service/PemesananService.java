@@ -27,6 +27,7 @@ public interface PemesananService {
                                            @Header("Accept") String type,
                                            @Header("X-Requested-With") String request,
                                            @Field("id_detail") int id_detail,
+                                           @Field("jumlah_penumpang") int jumlah,
                                            @Field("id_metode_pembayaran") int id_metode,
                                            @Field("tanggal") String tanggal_input);
 

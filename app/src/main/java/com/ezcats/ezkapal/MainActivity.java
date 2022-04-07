@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
 
     CountDownTimer countDownTimer;
-    String token;
+    String token,name,email,number;
     SharedPreferences sharedPreferences;
 
     @Override
@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE);
         String type_account = sharedPreferences.getString(getString(R.string.type_account), "");
         token = sharedPreferences.getString(getString(R.string.token), "");
+        name = sharedPreferences.getString(getString(R.string.name_shared_preference),"");
+        email = sharedPreferences.getString(getString(R.string.email_shared_preference),"");
+        number = sharedPreferences.getString(getString(R.string.email_shared_preference),"");
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();

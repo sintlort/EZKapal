@@ -68,10 +68,19 @@ public class LoginActivity extends AppCompatActivity {
                         if(response.isSuccessful()){
                             if(response.code()==200){
                                 JSONObject jsonObject = new JSONObject(response.body().string());
-                                editor.putString(getString(R.string.token), "Bearer "+jsonObject.getString("token"));
-                                editor.putString(getString(R.string.type_account), jsonObject.getString("type_account"));
-                                editor.apply();
-                                gotoIntent(MainActivity.class);
+                                String message = jsonObject.getString("message");
+                                if(message.equals("success")){
+                                    JSONObject userIdentity = jsonObject.getJSONObject("user");
+                                    editor.putString(getString(R.string.token), "Bearer "+jsonObject.getString("token"));
+                                    editor.putString(getString(R.string.type_account), jsonObject.getString("type_account"));
+                                    editor.putString(getString(R.string.name_shared_preference), userIdentity.getString("nama"));
+                                    editor.putString(getString(R.string.email_shared_preference), userIdentity.getString("email"));
+                                    editor.putString(getString(R.string.number_shared_preference), userIdentity.getString("nohp"));
+                                    editor.apply();
+                                    gotoIntent(MainActivity.class);
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Email atau password salah!!",Toast.LENGTH_LONG).show();
+                                }
                             }
                         } else {
                             Toast.makeText(getApplicationContext(), "Email atau password salah!!",Toast.LENGTH_LONG).show();
@@ -79,14 +88,16 @@ public class LoginActivity extends AppCompatActivity {
 
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan", Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {
                         e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                    Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan", Toast.LENGTH_SHORT).show();
                 }
             });
         }

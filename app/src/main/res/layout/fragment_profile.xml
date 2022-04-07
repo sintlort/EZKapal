@@ -28,6 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/profile_name"
                 style="@style/ProfileTextDark"
                 android:layout_width="225dp"
                 android:layout_height="wrap_content"
