@@ -28,7 +28,7 @@ public class SearchTicketActivity extends AppCompatActivity implements SearchTic
 
     private static final String TAG = "TICKET_ACTIVITY";
     RecyclerView recyclerView;
-    String tipe_kapal, date;
+    String tipe_kapal, date, nomor_polisi;
     int asal_pelabuhan, tujuan_pelabuhan, jumlah_penumpang, idGolongan;
 
     @Override
@@ -44,6 +44,7 @@ public class SearchTicketActivity extends AppCompatActivity implements SearchTic
         this.jumlah_penumpang = bundle.getInt("jumlah_penumpang");
         this.tipe_kapal = bundle.getString("tipe_kapal");
         this.date = bundle.getString("date");
+        this.nomor_polisi = bundle.getString("nomor_polisi");
         Log.d(TAG, "onCreate: "+date+" | "+tipe_kapal);
         initData();
 
@@ -86,6 +87,7 @@ public class SearchTicketActivity extends AppCompatActivity implements SearchTic
         int harga = Integer.parseInt(ticketModel1.getHarga()) * jumlah_penumpang;
         ticketModel1.setHarga(String.valueOf(harga));
         intent.putExtra("Ticket",ticketModel1);
+        intent.putExtra("nomor_polisi",nomor_polisi);
         intent.putExtra("jumlah_penumpang",jumlah_penumpang);
         startActivity(intent);
     }

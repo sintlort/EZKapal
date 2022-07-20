@@ -19,6 +19,8 @@ import com.google.android.material.tabs.TabLayout;
 
 public class fragment_ticket extends Fragment {
 
+    private static final String TAG = "TICKET_FRAGMENT";
+
     TabLayout tabLayout;
     ViewPager viewPager;
     ViewPageAdapter viewPageAdapters;

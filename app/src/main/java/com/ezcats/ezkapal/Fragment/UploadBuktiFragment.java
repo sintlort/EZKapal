@@ -91,7 +91,6 @@ public class UploadBuktiFragment extends DialogFragment {
         btn_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getDialog().dismiss();
                 uploadImage(file, id_detail);
             }
         });

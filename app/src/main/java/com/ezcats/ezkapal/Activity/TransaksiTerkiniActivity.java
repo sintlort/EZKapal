@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.ezcats.ezkapal.APIClient.RetrofitClient;
@@ -25,13 +27,21 @@ import retrofit2.Response;
 public class TransaksiTerkiniActivity extends AppCompatActivity implements TransaksiTerkiniAdapter.OnTerkiniClick {
 
     RecyclerView recyclerView;
+    ImageView backButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaksi_terkini);
 
         recyclerView = findViewById(R.id.transaksi_recycler);
+        backButton = findViewById(R.id.back_button);
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         initData();
     }
 

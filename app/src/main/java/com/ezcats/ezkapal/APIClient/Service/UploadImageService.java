@@ -1,5 +1,7 @@
 package com.ezcats.ezkapal.APIClient.Service;
 
+import com.ezcats.ezkapal.Model.JSONModel.UserJSONModel;
+
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -18,4 +20,11 @@ public interface UploadImageService {
                                    @Header("Authorization") String authHeader,
                                    @Part MultipartBody.Part part,
                                    @Part("id_detail") RequestBody requestBody);
+
+    @Multipart
+    @POST("edit/image")
+    Call<UserJSONModel> uploadProfileImage(@Header("Accept") String type,
+                                           @Header("X-Requested-With") String request,
+                                           @Header("Authorization") String authHeader,
+                                           @Part MultipartBody.Part part);
 }

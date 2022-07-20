@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.putString(getString(R.string.name_shared_preference), userIdentity.getString("nama"));
                                     editor.putString(getString(R.string.email_shared_preference), userIdentity.getString("email"));
                                     editor.putString(getString(R.string.number_shared_preference), userIdentity.getString("nohp"));
+                                    editor.putString(getString(R.string.picture_shared_preference), userIdentity.getString("foto"));
                                     editor.apply();
                                     gotoIntent(MainActivity.class);
                                 } else {

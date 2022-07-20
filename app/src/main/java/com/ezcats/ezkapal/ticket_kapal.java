@@ -70,7 +70,6 @@ public class ticket_kapal extends Fragment implements PelabuhanFragment.SendData
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_ticket_kapal, container, false);
 
-        golonganKendaraan = v.findViewById(R.id.golongan);
         nomorPolisi = v.findViewById(R.id.nomor_kendaraan);
         mPenumpang = v.findViewById(R.id.penumpang);
         constraintLayout = v.findViewById(R.id.expandableGolongan);
@@ -160,6 +159,7 @@ public class ticket_kapal extends Fragment implements PelabuhanFragment.SendData
                     mBundle.putInt("asal_pelabuhan", idAsal);
                     mBundle.putInt("tujuan_pelabuhan", idTujuan);
                     mBundle.putString("date", dateValue);
+                    mBundle.putString("nomor_polisi", nomorPolisi.getText().toString());
                     mBundle.putInt("jumlah_penumpang", Integer.parseInt(mPenumpang.getText().toString()));
                     intent.putExtras(mBundle);
                     startActivity(intent);

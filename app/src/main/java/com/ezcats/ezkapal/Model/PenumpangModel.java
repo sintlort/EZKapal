@@ -10,10 +10,13 @@ public class PenumpangModel {
     @SerializedName("no_id_card")
     public String ktpPenumpang;
 
+    public String card_color;
 
-    public PenumpangModel(String namaPenumpang, String ktpPenumpang) {
+
+    public PenumpangModel(String namaPenumpang, String ktpPenumpang, String card_color) {
         this.namaPenumpang = namaPenumpang;
         this.ktpPenumpang = ktpPenumpang;
+        this.card_color = card_color;
     }
 
     public String getNamaPenumpang() {
@@ -32,11 +35,20 @@ public class PenumpangModel {
         this.ktpPenumpang = ktpPenumpang;
     }
 
+    public String getCard_color() {
+        return card_color;
+    }
+
+    public void setCard_color(String card_color) {
+        this.card_color = card_color;
+    }
+
     @Override
     public String toString() {
         return "PenumpangModel{" +
                 "namaPenumpang='" + namaPenumpang + '\'' +
                 ", ktpPenumpang='" + ktpPenumpang + '\'' +
+                ", card_color='" + card_color + '\'' +
                 '}';
     }
 }

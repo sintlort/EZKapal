@@ -1,5 +1,6 @@
 package com.ezcats.ezkapal.APIClient.Service;
 
+import com.ezcats.ezkapal.Model.JSONModel.TransaksiJSONModel;
 import com.ezcats.ezkapal.Model.MetodePembayaranModel;
 import com.ezcats.ezkapal.Model.PenumpangModel;
 
@@ -23,13 +24,14 @@ public interface PemesananService {
 
     @FormUrlEncoded
     @POST("transaction/commited")
-    Call<ResponseBody> transactionCommited(@Header("Authorization") String authHeader,
-                                           @Header("Accept") String type,
-                                           @Header("X-Requested-With") String request,
-                                           @Field("id_detail") int id_detail,
-                                           @Field("jumlah_penumpang") int jumlah,
-                                           @Field("id_metode_pembayaran") int id_metode,
-                                           @Field("tanggal") String tanggal_input);
+    Call<TransaksiJSONModel> transactionCommited(@Header("Authorization") String authHeader,
+                                                 @Header("Accept") String type,
+                                                 @Header("X-Requested-With") String request,
+                                                 @Field("id_detail") int id_detail,
+                                                 @Field("jumlah_penumpang") int jumlah,
+                                                 @Field("id_metode_pembayaran") int id_metode,
+                                                 @Field("nomor_polisi") String nomor_polisi,
+                                                 @Field("tanggal") String tanggal_input);
 
     @FormUrlEncoded
     @POST("transaction/commited/penumpang")

@@ -1,40 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ticket_speedboat"
-    android:background="@color/light_blue">
+    android:background="@color/light_blue"
+    tools:context=".ticket_speedboat">
+
+    <ImageView
+        android:id="@+id/image_pelabuhan_1"
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_margin="25dp"
+        android:src="@drawable/color_boat"
+        app:layout_constraintEnd_toStartOf="@id/pelabuhan_asal_s"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/pelabuhan_asal"
-        android:layout_width="match_parent"
+        android:id="@+id/pelabuhan_asal_s"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:paddingStart="10dp"
-        android:drawableStart="@drawable/custom_pelabuhan_input"
-        android:drawablePadding="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
         android:background="@drawable/custom_input"
         android:ems="10"
         android:hint="@string/pelabuhan_asal"
+        android:inputType="textNoSuggestions"
+        android:paddingStart="20dp"
         android:textSize="14sp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_pelabuhan_1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_pelabuhan_2"
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginVertical="33dp"
+        android:src="@drawable/color_boat"
+        app:layout_constraintEnd_toStartOf="@id/pelabuhan_tujuan_s"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_pelabuhan_1" />
 
     <EditText
-        android:id="@+id/pelabuhan_tujuan"
-        android:layout_width="match_parent"
+        android:id="@+id/pelabuhan_tujuan_s"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:paddingStart="10dp"
-        android:drawableStart="@drawable/custom_pelabuhan_input"
-        android:drawablePadding="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
         android:background="@drawable/custom_input"
         android:ems="10"
         android:hint="@string/pelabuhan_tujuan"
+        android:inputType="textNoSuggestions"
+        android:paddingStart="20dp"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_pelabuhan_2"
+        app:layout_constraintTop_toBottomOf="@id/pelabuhan_asal_s" />
+
+    <ImageView
+        android:id="@+id/image_tanggal_keberangkatan"
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginVertical="33dp"
+        android:src="@drawable/color_calendar"
+        app:layout_constraintEnd_toStartOf="@id/tanggal_keberangkatan_s"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_pelabuhan_2" />
+
+    <EditText
+        android:id="@+id/tanggal_keberangkatan_s"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="20dp"
-        app:layout_constraintTop_toBottomOf="@id/pelabuhan_asal"/>
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:hint="@string/tanggal_keberangkatan"
+        android:inputType="date"
+        android:paddingStart="20dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_tanggal_keberangkatan"
+        app:layout_constraintTop_toBottomOf="@id/pelabuhan_tujuan_s" />
+
+    <ImageView
+        android:id="@+id/image_penumpang"
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginVertical="27dp"
+        android:src="@drawable/color_total_person"
+        app:layout_constraintEnd_toStartOf="@id/penumpang_s"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_tanggal_keberangkatan" />
+
+    <EditText
+        android:id="@+id/penumpang_s"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        android:background="@drawable/custom_input"
+        android:ems="10"
+        android:hint="@string/jumlah_penumpang"
+        android:inputType="numberSigned"
+        android:paddingStart="20dp"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_penumpang"
+        app:layout_constraintTop_toBottomOf="@id/tanggal_keberangkatan_s" />
+
+    <Button
+        android:id="@+id/btn_cari_s"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:text="@string/btn_cari"
+        app:layout_constraintTop_toBottomOf="@id/penumpang_s" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

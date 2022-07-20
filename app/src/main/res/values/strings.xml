@@ -3,6 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nama">I Dewa Made Laksana Putra</string>
+    <string name="null_nama">Name</string>
     <string name="email">dewalaksana@student.unud.ac.id</string>
     <string name="email_text">Email : </string>
     <string name="ktp_text">KTP : </string>
@@ -17,6 +18,8 @@
     <string name="nomor_polisi">Nomor Polisi</string>
     <string name="jumlah_penumpang">Jumlah Penumpang</string>
     <string name="btn_cari">Cari Jadwal</string>
+    <string name="btn_update">Update</string>
+    <string name="btn_edit_password">Edit Password</string>
     <string name="btn_pilih">Pilih Tiket</string>
     <string name="status">Status : </string>
     <string name="Pcode">Kode : </string>
@@ -44,6 +47,7 @@
     <string name="status_transaksi">Status</string>
     <string name="pemesan">Pemesan</string>
     <string name="penumpang">Penumpang</string>
+    <string name="penumpang_required">Penumpang (*)</string>
     <string name="nama_penumpang">Nama Penumpang</string>
     <string name="masukan_penumpang">Masukan Penumpang</string>
     <string name="kapal">Caspla</string>
@@ -57,6 +61,8 @@
     <string name="nomor_rekening">1213124123</string>
     <string name="metode">Transfer manual</string>
     <string name="nomor_telepon_placeholder">Nomor Telepon</string>
+    <string name="required_star">*</string>
+    <string name="required_profile">Harus diisi*</string>
 
     <integer name="minPenumpang">1</integer>
     <integer name="maxPenumpang">10</integer>
@@ -71,6 +77,9 @@
     <string name="email_placeholder">Email Anda</string>
     <string name="alamat_placeholder">Alamat Anda</string>
     <string name="nohp_placeholder">Nomor Handphone</string>
+    <string name="old_password_placeholder">Password Lama Anda</string>
+    <string name="new_password_placeholder">Password Baru Anda</string>
+    <string name="new_password_confirm_placeholder">Konfirmasi Password Baru Anda</string>
     <string name="btn_login">Sign In</string>
     <string name="btn_register">Sign Up</string>
 
@@ -92,6 +101,7 @@
     <string name="upload_ulang">Upload Kembali</string>
     <string name="pilih_file">Pilih File</string>
     <string name="upload">Upload</string>
+    <string name="upload_profile">Upload Profile</string>
     <string name="batal_transaksi">Batalkan Pemesanan</string>
     <string name="review">Review Layanan</string>
     <string name="ticket_btn">Unduh Tiket</string>
@@ -105,13 +115,28 @@
     <string name="verifikasi_status_placeholder"> Not Used</string>
     <string name="verifikasi_tanggal">Tanggal Tiket : </string>
     <string name="kode_tiket">0000000000001</string>
+    <string name="notification_title">Notification Title</string>
+    <string name="notification_text">Notification Text</string>
 
     <string name="token">token</string>
     <string name="type_account">type_account</string>
     <string name="name_shared_preference">name</string>
+    <string name="address_shared_preference">address</string>
     <string name="email_shared_preference">email</string>
     <string name="number_shared_preference">nohp</string>
+    <string name="picture_shared_preference">foto</string>
     <string name="shared_preference">tokenSharedPreference</string>
+
+
+    <string name="pelabuhan_not_found">Tidak ada pelabuhan yang ditemukan</string>
+    <string name="notification_not_found">Tidak ada notifikasi yang ditemukan</string>
+    <string name="try_again">Ulangi kembali</string>
+    <string name="ticket_not_found">Tidak ada transaksi yang ditemukan</string>
+    <string name="schedule_not_found">Tidak ada jadwal yang ditemukan</string>
+
+    <string name="menu_archieve">Arsipkan</string>
+    <string name="menu_delete">Hapus</string>
+    <string name="menu_delete_notifikasi">Hapus Notifikasi</string>
 
 
     <string-array name="service_type">

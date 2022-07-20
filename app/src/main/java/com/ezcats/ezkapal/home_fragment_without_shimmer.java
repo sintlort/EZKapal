@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,15 +21,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ezcats.ezkapal.Activity.CaptureActivity;
+import com.ezcats.ezkapal.Activity.NotificationActivity;
 import com.ezcats.ezkapal.Adapter.BeritaAdapter;
 import com.ezcats.ezkapal.Model.BeritaModel;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class home_fragment_without_shimmer extends Fragment {
 
@@ -37,8 +42,14 @@ public class home_fragment_without_shimmer extends Fragment {
 
     RecyclerView beritaKapal, beritaPelabuhan;
 
-    TextView nameText, emailText;
+    CircleImageView circleImageView;
 
+    TextView nameText, emailText;
+    String foto,name,email,number;
+
+    ImageView notificationButton;
+
+    private static final String TAG = "HOME_WITHOUT_SHIMMER_FRAGMENT";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,15 +60,26 @@ public class home_fragment_without_shimmer extends Fragment {
         beritaPelabuhan = v.findViewById(R.id.berita_pelabuhan);
         nameText = v.findViewById(R.id.nameFragmentHome);
         emailText = v.findViewById(R.id.emailFragmentHome);
-        String name,email,number;
+        circleImageView = v.findViewById(R.id.profileFragmentHome);
+        notificationButton = v.findViewById(R.id.notification_button);
         SharedPreferences sharedPreferences;
         sharedPreferences = getActivity().getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE);
         name = sharedPreferences.getString(getString(R.string.name_shared_preference),"");
         email = sharedPreferences.getString(getString(R.string.email_shared_preference),"");
+        foto = sharedPreferences.getString(getString(R.string.picture_shared_preference),"");
+        loadPicasso();
         nameText.setText(name);
         emailText.setText(email);
         addBeritaData();
         beritaRecycler();
+
+        notificationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), NotificationActivity.class);
+                startActivity(intent);
+            }
+        });
         return v;
     }
 
@@ -75,6 +97,12 @@ public class home_fragment_without_shimmer extends Fragment {
         beritaPelabuhan.setLayoutManager(layoutManager2);
         beritaKapal.setAdapter(beritaAdapter);
         beritaPelabuhan.setAdapter(beritaAdapterPelabuhan);
+    }
+
+    private void loadPicasso() {
+        String url = "http://10.0.2.2:8000/storage/images/profile/"+foto;
+        Log.d(TAG, "loadPicasso: "+url);
+        Picasso.get().load(url).placeholder(R.drawable.home_fragment_profile).into(circleImageView);
     }
 
     public void addBeritaData() {

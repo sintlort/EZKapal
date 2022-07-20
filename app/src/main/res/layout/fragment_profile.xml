@@ -18,7 +18,7 @@
             android:layout_height="match_parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
+                android:id="@+id/profile_image_fragment"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_margin="10dp"
@@ -35,11 +35,11 @@
                 android:layout_margin="20dp"
                 android:text="@string/nama"
                 android:textSize="17sp"
-                app:layout_constraintStart_toEndOf="@id/profile_image"
+                app:layout_constraintStart_toEndOf="@id/profile_image_fragment"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/edit_profile"
+                android:id="@+id/edit_profile_fragment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
