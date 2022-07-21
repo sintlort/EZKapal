@@ -98,7 +98,7 @@ public class fragment_profile extends Fragment implements LogoutFragment.LogoutL
     }
 
     private void loadPicasso() {
-        String url = "http://10.0.2.2:8000/storage/images/profile/"+foto;
+        String url = "https://android.e-tiket.ngaeapp.com/storage/images/profile/"+foto;
         Picasso.get().load(url).placeholder(R.drawable.home_fragment_profile).into(circleImageView);
     }
 

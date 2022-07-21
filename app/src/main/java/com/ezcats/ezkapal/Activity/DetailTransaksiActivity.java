@@ -23,6 +23,7 @@ import com.ezcats.ezkapal.Adapter.PenumpangAdapter;
 import com.ezcats.ezkapal.Fragment.BatalkanTransaksiFragment;
 import com.ezcats.ezkapal.Fragment.PenumpangFragment;
 import com.ezcats.ezkapal.Fragment.ReviewFragment;
+import com.ezcats.ezkapal.Model.JSONModel.StatusMidtransJSONModel;
 import com.ezcats.ezkapal.Model.PenumpangModel;
 import com.ezcats.ezkapal.Model.ReviewModel;
 import com.ezcats.ezkapal.Model.TicketModel;
@@ -128,7 +129,7 @@ public class DetailTransaksiActivity extends AppCompatActivity implements Penump
             @Override
             public void onClick(View view) {
                 if (transaksiModel.getFile_tiket() != null) {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://10.0.2.2:8000/storage/ticket_pdf/"+transaksiModel.getFile_tiket()+".pdf"));
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://android.e-tiket.ngaeapp.com/storage/ticket_pdf/"+transaksiModel.getFile_tiket()+".pdf"));
                     startActivity(browserIntent);
                 }
             }
@@ -138,7 +139,25 @@ public class DetailTransaksiActivity extends AppCompatActivity implements Penump
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pickImage();
+                TransactionService transactionService = RetrofitClient.getRetrofitInstance().create(TransactionService.class);
+                Call<StatusMidtransJSONModel> call = transactionService.checkMyMidtrans(token,"application/json", "XMLHttpRequest", transaksiModel.getId_detail());
+                call.enqueue(new Callback<StatusMidtransJSONModel>() {
+                    @Override
+                    public void onResponse(Call<StatusMidtransJSONModel> call, Response<StatusMidtransJSONModel> response) {
+                        if(response.isSuccessful()){
+                            if(response.code()==200){
+                                Intent intent = new Intent(getApplicationContext(), VirtualAccountNumbersActivity.class)
+                                        .putExtra("va_number",response.body());
+                                startActivity(intent);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<StatusMidtransJSONModel> call, Throwable t) {
+                        Toast.makeText(DetailTransaksiActivity.this, "Terjadi kesalahan, harap ulangi kembali (retrofit)", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
@@ -280,11 +299,6 @@ public class DetailTransaksiActivity extends AppCompatActivity implements Penump
         waktuTujuan.setText(transaksiModel.getWaktu_berangkat_tujuan());
         metodePembayaran.setText(transaksiModel.getMetode_pembayaran().replace("_", " ").toUpperCase());
         noRekening.setText(transaksiModel.getNomor_rekening());
-        if (transaksiModel.getBukti() != null) {
-            upload.setText(getString(R.string.upload_ulang));
-        } else {
-            upload.setText(getString(R.string.upload_transaksi));
-        }
         initUser();
         initPenumpang();
         chckButton(transaksiModel);
@@ -409,13 +423,19 @@ public class DetailTransaksiActivity extends AppCompatActivity implements Penump
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                    } else if(response.code()==400){
+                        Toast.makeText(DetailTransaksiActivity.this, "Harap isi semua masukan", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
                         Log.d("SEND REVIEW API", "onResponse: REVIEW API NOT 200");
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
-                    Log.d("SEND REVIEW API", "onResponse: REVIEW API NOT SUCCESSFUL");
+                    if(response.code()==400){
+                        Toast.makeText(DetailTransaksiActivity.this, "Harap isi semua masukan", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
+                        Log.d("SEND REVIEW API", "onResponse: REVIEW API NOT SUCCESSFUL");
+                    }
                 }
             }
 

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +33,7 @@ import com.ezcats.ezkapal.Model.JSONModel.TransaksiJSONModel;
 import com.ezcats.ezkapal.Model.PenumpangModel;
 import com.ezcats.ezkapal.Model.TicketModel;
 import com.ezcats.ezkapal.Model.UserModel;
+import com.ezcats.ezkapal.Model.VirtualAccountModel;
 import com.ezcats.ezkapal.R;
 import com.ezcats.ezkapal.ticket_kapal;
 
@@ -67,6 +69,7 @@ public class DetailPesanan extends AppCompatActivity implements PenumpangAdapter
     Button pesanTiket;
 
     int i = 1;
+    int success;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,61 +121,53 @@ public class DetailPesanan extends AppCompatActivity implements PenumpangAdapter
             if (id_metode != 0) {
                 SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE);
                 String token = sharedPreferences.getString(getString(R.string.token), "");
+
+                //GET PENUMPANG DATA
+                JSONArray jarryName = new JSONArray();
+                JSONArray jarryCard = new JSONArray();
+                for(int is = 0; is<penumpangModels.size();is++){
+                    jarryName.put(penumpangModels.get(is).getNamaPenumpang());
+                    jarryCard.put(penumpangModels.get(is).getKtpPenumpang());
+                }
                 PemesananService pemesananService = RetrofitClient.getRetrofitInstance().create(PemesananService.class);
-                Call<TransaksiJSONModel> call = pemesananService.transactionCommited(token, "application/json", "XMLHttpRequest", id_detail, jumlah_penumpang, id_metode, nomor_polisi, tanggal_input);
+                Call<TransaksiJSONModel> call = pemesananService.transactionCommited(token, "application/json", "XMLHttpRequest", id_detail, jumlah_penumpang, id_metode, nomor_polisi, tanggal_input,jarryName.toString(), jarryCard.toString());
                 call.enqueue(new Callback<TransaksiJSONModel>() {
                     @Override
                     public void onResponse(Call<TransaksiJSONModel> call, Response<TransaksiJSONModel> response) {
                         Log.d("PEMESANANAPI", "onResponse: success");
+                        Log.d("PEMESANANAPI3", "onResponse2: "+response.body().getMessage());
                         if (response.isSuccessful()) {
                             if (response.code() == 200) {
                                 String message = response.body().getMessage();
                                 if (message.equals("success")) {
-                                    forPenumpang(pemesananService, token, response.body().getPembayaranModel().getId_detail());
+                                    completion(response.body().getMidtransModel().getVirtualAccountModel());
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembalis1", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
                                 Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan", Toast.LENGTH_SHORT).show();
                             }
                         } else {
-                            Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembalis2", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<TransaksiJSONModel> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
+                        Log.d("PEMESANANONFAILURE", "onFailure: "+t.getMessage());
+                        Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembalis3", Toast.LENGTH_SHORT).show();
                     }
                 });
 
             } else {
                 Toast.makeText(getApplicationContext(), "Harap memilih metode pembayaran", Toast.LENGTH_LONG).show();
             }
-        } else {
-            Toast.makeText(getApplicationContext(), "Harap mengisi semua data penumpang", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void forPenumpang(PemesananService pemesananService, String token, int id_detail) {
-        int i1 = 0;
-        int success = 0;
-        while (i1 < penumpangModels.size()) {
-            Call<ResponseBody> call2 = pemesananService.transactionForPenumpang(token, "application/json", "XMLHttpRequest", id_detail, penumpangModels.get(i1).getNamaPenumpang(), penumpangModels.get(i1).getKtpPenumpang());
-            call2.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                }
-
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                }
-            });
-            i1++;
-        }
+    private void completion(List<VirtualAccountModel> virtualAccountModels) {
         Intent intent = new Intent(getApplicationContext(), PesananSukses.class);
+        intent.putExtra("va_number", virtualAccountModels.get(0));
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
@@ -185,11 +180,21 @@ public class DetailPesanan extends AppCompatActivity implements PenumpangAdapter
                 penumpangModel.setCard_color("#ffffff");
                 penumpangModels.set(i2, penumpangModel);
                 penumpangAdapter.notifyDataSetChanged();
+                try{
+                    int nohps = Integer.parseInt(penumpangModel.getKtpPenumpang());
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getApplicationContext(), "Nomor handphone tidak boleh huruf", Toast.LENGTH_LONG).show();
+                    return false;
+                } catch (Exception exception){
+                    Toast.makeText(getApplicationContext(), "Nomor handphone tidak boleh huruf", Toast.LENGTH_LONG).show();
+                    return false;
+                }
                 i2++;
             } else {
                 penumpangModel.setCard_color("#ffffe0");
                 penumpangModels.set(i2, penumpangModel);
                 penumpangAdapter.notifyDataSetChanged();
+                Toast.makeText(getApplicationContext(), "Harap mengisi semua data penumpang", Toast.LENGTH_LONG).show();
                 return false;
             }
         }

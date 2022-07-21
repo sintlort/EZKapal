@@ -2,7 +2,10 @@ package com.ezcats.ezkapal.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MidtransModel {
+import java.io.Serializable;
+import java.util.List;
+
+public class MidtransModel implements Serializable {
 
     @SerializedName("status_code")
     private String status_code;
@@ -29,9 +32,9 @@ public class MidtransModel {
     private String transaction_status;
 
     @SerializedName("va_numbers")
-    private VirtualAccountModel virtualAccountModel;
+    private List<VirtualAccountModel> virtualAccountModel;
 
-    public MidtransModel(String status_code, String status_message, String transaction_id, String order_id, String gross_amount, String payment_type, String transaction_time, String transaction_status, VirtualAccountModel virtualAccountModel) {
+    public MidtransModel(String status_code, String status_message, String transaction_id, String order_id, String gross_amount, String payment_type, String transaction_time, String transaction_status, List<VirtualAccountModel> virtualAccountModel) {
         this.status_code = status_code;
         this.status_message = status_message;
         this.transaction_id = transaction_id;
@@ -107,13 +110,14 @@ public class MidtransModel {
         this.transaction_status = transaction_status;
     }
 
-    public VirtualAccountModel getVirtualAccountModel() {
+    public List<VirtualAccountModel> getVirtualAccountModel() {
         return virtualAccountModel;
     }
 
-    public void setVirtualAccountModel(VirtualAccountModel virtualAccountModel) {
+    public void setVirtualAccountModel(List<VirtualAccountModel> virtualAccountModel) {
         this.virtualAccountModel = virtualAccountModel;
     }
+
 
     @Override
     public String toString() {

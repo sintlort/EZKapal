@@ -84,7 +84,12 @@ public class SearchTicketActivity extends AppCompatActivity implements SearchTic
     public void onClickPilihTiket(Class classTarget, TicketModel ticketModel) {
         Intent intent = new Intent(this, classTarget);
         TicketModel ticketModel1 = ticketModel;
-        int harga = Integer.parseInt(ticketModel1.getHarga()) * jumlah_penumpang;
+        int harga = 0;
+        if(idGolongan > 2 ){
+            harga = Integer.parseInt(ticketModel1.getHarga());
+        } else {
+            harga = Integer.parseInt(ticketModel1.getHarga()) * jumlah_penumpang;
+        }
         ticketModel1.setHarga(String.valueOf(harga));
         intent.putExtra("Ticket",ticketModel1);
         intent.putExtra("nomor_polisi",nomor_polisi);

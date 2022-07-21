@@ -32,4 +32,9 @@ public interface TicketService {
     Call<List<GolonganModel>> getGolongan(@Header("Authorization") String authHeader,
                                           @Header("Accept") String type,
                                           @Header("X-Requested-With") String request);
+
+    @GET("golongan/speedboat")
+    Call<List<GolonganModel>> getGolonganSpeedboat(@Header("Authorization") String authHeader,
+                                                   @Header("Accept") String type,
+                                                   @Header("X-Requested-With") String request);
 }

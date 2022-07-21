@@ -99,7 +99,7 @@ public class EditProfileActivity extends AppCompatActivity implements UploadProf
     }
 
     private void setProfile(UserModel body) {
-        String url = "http://10.0.2.2:8000/storage/images/profile/"+body.getFoto();
+        String url = "https://android.e-tiket.ngaeapp.com/storage/images/profile/"+body.getFoto();
         Picasso.get().load(url).placeholder(R.drawable.home_fragment_profile).into(circleImageView);
         profile_names.setText(body.getNama_user());
         name.setText(body.getNama_user());

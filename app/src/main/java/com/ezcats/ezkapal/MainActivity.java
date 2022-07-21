@@ -22,6 +22,9 @@ import com.ezcats.ezkapal.APIClient.RetrofitClient;
 import com.ezcats.ezkapal.APIClient.Service.AccountService;
 import com.ezcats.ezkapal.APIClient.Service.TransactionService;
 import com.ezcats.ezkapal.Activity.CaptureActivity;
+import com.ezcats.ezkapal.Activity.LandingActivity;
+import com.ezcats.ezkapal.Activity.LoginActivity;
+import com.ezcats.ezkapal.Activity.PesananSukses;
 import com.ezcats.ezkapal.Adapter.BeritaAdapter;
 import com.ezcats.ezkapal.Fragment.LogoutFragment;
 import com.ezcats.ezkapal.Fragment.VerifikasiFragment;
@@ -90,14 +93,20 @@ public class MainActivity extends AppCompatActivity {
 
                         Log.d("MAINACTIVITY", tokens);
                         AccountService accountService = RetrofitClient.getRetrofitInstance().create(AccountService.class);
-                        Call<UserJSONModel> call = accountService.receiveFCM("application/json","XMLHttpRequest",token, tokens);
-                        call.enqueue(new Callback<UserJSONModel>() {
+                        Call<ResponseBody> call = accountService.receiveFCM("application/json","XMLHttpRequest",token, tokens);
+                        call.enqueue(new Callback<ResponseBody>() {
                             @Override
-                            public void onResponse(Call<UserJSONModel> call, Response<UserJSONModel> response) {
+                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                if(response.code() != 200){
+                                    sharedPreferences.edit().clear().apply();
+                                    Intent intent = new Intent(getApplicationContext(), LandingActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(intent);
+                                }
                             }
 
                             @Override
-                            public void onFailure(Call<UserJSONModel> call, Throwable t) {
+                            public void onFailure(Call<ResponseBody> call, Throwable t) {
 
                             }
                         });
@@ -203,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             } catch (JSONException e) {
                                 Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali, \njika kesalahan terjadi berulang, harap menghubungi administrator", Toast.LENGTH_SHORT).show();
-                                Log.d("GET TICKET DATA", "onResponse: GET TICKET DATA API FAILED IOEXCEPTION");
+                                Log.d("GET TICKET DATA", "onResponse: GET TICKET DATA API FAILED JSONEXCEPTION");
                                 e.printStackTrace();
                             } catch (IOException e) {
                                 Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali, \njika kesalahan terjadi berulang, harap menghubungi administrator", Toast.LENGTH_SHORT).show();

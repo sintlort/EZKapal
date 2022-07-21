@@ -98,6 +98,7 @@
     <string name="batal">Batal</string>
     <string name="batalkan">Batalkan</string>
     <string name="upload_transaksi">Upload Bukti Pembayaran</string>
+    <string name="lihat_pembayaran">Lihat Pembayaran</string>
     <string name="upload_ulang">Upload Kembali</string>
     <string name="pilih_file">Pilih File</string>
     <string name="upload">Upload</string>

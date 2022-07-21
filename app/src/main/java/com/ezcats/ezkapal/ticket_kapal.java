@@ -104,7 +104,7 @@ public class ticket_kapal extends Fragment implements PelabuhanFragment.SendData
                 if (!(mPenumpang.getText().toString() == "")) {
                     bundle.putInt("penumpangValue", Integer.parseInt(mPenumpang.getText().toString()));
                 } else {
-                    bundle.putInt("penumpangValue", 0);
+                    bundle.putInt("penumpangValue", 1);
 
                 }
                 penumpangSelector.setArguments(bundle);
@@ -118,6 +118,10 @@ public class ticket_kapal extends Fragment implements PelabuhanFragment.SendData
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
+        final Calendar maxDate = Calendar.getInstance();
+            maxDate.set(Calendar.DAY_OF_MONTH, day);
+            maxDate.set(Calendar.MONTH, month);
+            maxDate.set(Calendar.YEAR, year);
 
         mTanggalKeberangkatan = v.findViewById(R.id.tanggal_keberangkatan);
 
@@ -128,6 +132,7 @@ public class ticket_kapal extends Fragment implements PelabuhanFragment.SendData
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
                         getActivity(), onDateSetListener, year, month, day);
+                datePickerDialog.getDatePicker().setMinDate(maxDate.getTimeInMillis());
                 datePickerDialog.show();
             }
         });
@@ -149,9 +154,16 @@ public class ticket_kapal extends Fragment implements PelabuhanFragment.SendData
         mBtn_cari.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (idAsal == 0 && idTujuan == 0 && dateValue == null && jumlahPenumpang == null) {
+                if (idAsal == 0 || idTujuan == 0 || dateValue == null) {
+                    Log.d(TAG, "onClick: "+idAsal+idTujuan+dateValue+jumlahPenumpang);
                     Toast.makeText(getContext(), "Harap mengisi semua data yang diperlukan!", Toast.LENGTH_LONG).show();
                 } else {
+                    if(idGolongan>2){
+                        if(nomorPolisi.getText().toString().length()<3){
+                            Toast.makeText(getContext(), "Nomor polisi kosong", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                    }
                     Intent intent = new Intent(getContext(), SearchTicketActivity.class);
                     Bundle mBundle = new Bundle();
                     mBundle.putInt("id_golongan", idGolongan);
@@ -201,7 +213,8 @@ public class ticket_kapal extends Fragment implements PelabuhanFragment.SendData
         call.enqueue(new Callback<List<GolonganModel>>() {
             @Override
             public void onResponse(Call<List<GolonganModel>> call, Response<List<GolonganModel>> response) {
-                assingDataSpinner(response.body());
+                assignDataSpinner(response.body());
+                Log.d(TAG, "onResponse: "+response.body().toString());
             }
 
             @Override
@@ -211,7 +224,7 @@ public class ticket_kapal extends Fragment implements PelabuhanFragment.SendData
         });
     }
 
-    private void assingDataSpinner(List<GolonganModel> golonganModels) {
+    private void assignDataSpinner(List<GolonganModel> golonganModels) {
         ArrayAdapter<GolonganModel> mAdapter = new ArrayAdapter<GolonganModel>(getContext(), android.R.layout.simple_spinner_item, golonganModels);
         mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(mAdapter);

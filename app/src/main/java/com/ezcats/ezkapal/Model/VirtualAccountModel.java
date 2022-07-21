@@ -2,7 +2,9 @@ package com.ezcats.ezkapal.Model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class VirtualAccountModel {
+import java.io.Serializable;
+
+public class VirtualAccountModel implements Serializable {
 
     @SerializedName("bank")
     private String bank;

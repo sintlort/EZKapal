@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -44,7 +45,7 @@ public class ticket_speedboat extends Fragment implements PelabuhanFragment.Send
 
     DatePickerDialog.OnDateSetListener onDateSetListener;
 
-    int idAsal, idTujuan;
+    int idAsal, idTujuan, idGolongan;
 
     Button mBtn_cari;
 
@@ -70,7 +71,45 @@ public class ticket_speedboat extends Fragment implements PelabuhanFragment.Send
 
         setBtnCari(v);
 
+        setSpinner(v);
+
         return v;
+    }
+
+    private void setSpinner(View v) {
+        mSpinner = v.findViewById(R.id.tipe_jasa_s);
+        TicketService ticketService = RetrofitClient.getRetrofitInstance().create(TicketService.class);
+        Call<List<GolonganModel>> call = ticketService.getGolonganSpeedboat(token, "application/json", "XMLHttpRequest");
+        call.enqueue(new Callback<List<GolonganModel>>() {
+            @Override
+            public void onResponse(Call<List<GolonganModel>> call, Response<List<GolonganModel>> response) {
+                assignDataSpinner(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<GolonganModel>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void assignDataSpinner(List<GolonganModel> golonganModels) {
+        ArrayAdapter<GolonganModel> mAdapter = new ArrayAdapter<GolonganModel>(getContext(), android.R.layout.simple_spinner_item, golonganModels);
+        mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mSpinner.setAdapter(mAdapter);
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                GolonganModel golonganModel = (GolonganModel) adapterView.getSelectedItem();
+                idGolongan = golonganModel.getId_golongan();
+                Log.d(TAG, "onItemSelected: "+idGolongan);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     private void setPenumpangClick() {
@@ -138,6 +177,7 @@ public class ticket_speedboat extends Fragment implements PelabuhanFragment.Send
                     Bundle mBundle = new Bundle();
                     mBundle.putString("tipe_kapal", "speedboat");
                     mBundle.putInt("asal_pelabuhan", idAsal);
+                    mBundle.putInt("id_golongan", idGolongan);
                     mBundle.putInt("tujuan_pelabuhan", idTujuan);
                     mBundle.putString("date", dateValue);
                     mBundle.putString("nomor_polisi", "");

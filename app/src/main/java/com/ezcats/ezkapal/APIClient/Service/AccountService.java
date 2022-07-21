@@ -77,7 +77,7 @@ public interface AccountService {
 
     @FormUrlEncoded
     @POST("receive/fcm")
-    Call<UserJSONModel> receiveFCM(@Header("Accept") String type,
+    Call<ResponseBody> receiveFCM(@Header("Accept") String type,
                                    @Header("X-Requested-With") String request,
                                    @Header("Authorization") String authHeader,
                                    @Field("fcm_token") String fcm_token);

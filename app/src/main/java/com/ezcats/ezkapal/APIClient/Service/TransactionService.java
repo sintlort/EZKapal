@@ -1,5 +1,6 @@
 package com.ezcats.ezkapal.APIClient.Service;
 
+import com.ezcats.ezkapal.Model.JSONModel.StatusMidtransJSONModel;
 import com.ezcats.ezkapal.Model.PemegangTicketModel;
 import com.ezcats.ezkapal.Model.PenumpangModel;
 import com.ezcats.ezkapal.Model.TicketModel;
@@ -85,4 +86,11 @@ public interface TransactionService {
                                          @Header("Accept") String type,
                                          @Header("X-Requested-With") String request,
                                          @Field("id_detail") int id_detail);
+
+    @FormUrlEncoded
+    @POST("transaction/midtrans/status")
+    Call<StatusMidtransJSONModel> checkMyMidtrans(@Header("Authorization") String authHeader,
+                                                     @Header("Accept") String type,
+                                                     @Header("X-Requested-With") String request,
+                                                     @Field("id") int id_detail);
 }
