@@ -181,7 +181,7 @@ public class DetailPesanan extends AppCompatActivity implements PenumpangAdapter
                 penumpangModels.set(i2, penumpangModel);
                 penumpangAdapter.notifyDataSetChanged();
                 try{
-                    int nohps = Integer.parseInt(penumpangModel.getKtpPenumpang());
+                    long nops = Long.parseLong(penumpangModel.getKtpPenumpang());
                 } catch (NumberFormatException e) {
                     Toast.makeText(getApplicationContext(), "Nomor handphone tidak boleh huruf", Toast.LENGTH_LONG).show();
                     return false;

@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Password harus lebih dari 6 huruf", Toast.LENGTH_LONG).show();
                             return;
                         }
-                        int nohps = Integer.parseInt(nohp.getText().toString());
+                        long nohps = Long.parseLong(nohp.getText().toString());
                         if(Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
                             RegisterModel registerModel = new RegisterModel(email.getText().toString(), nama.getText().toString(), password.getText().toString(), alamat.getText().toString(),nohp.getText().toString());
                             Call<ResponseBody> call = accountService.registerAccount("application/json","XMLHttpRequest","application/json", registerModel);
