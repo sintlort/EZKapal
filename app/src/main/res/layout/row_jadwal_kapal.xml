@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
@@ -22,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/ticket_date"
+                android:id="@+id/ticket_date_jadwal_kapal"
                 style="@style/PelabuhanTextTertiary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,30 +30,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/ticket_days"
-                style="@style/PelabuhanTextTertiary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="@string/days"
-                app:layout_constraintStart_toEndOf="@id/ticket_date"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/first_pelabuhan"
+                android:id="@+id/first_pelabuhan_jadwal_kapal"
                 style="@style/PelabuhanTextPrimary"
-                android:layout_width="130dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="25dp"
                 android:layout_marginTop="25dp"
-                android:text="@string/pelabuhan_asal"
+                android:text="Pelabuhan Sanur"
                 android:textAlignment="viewStart"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/first_pelabuhan_status"
+                android:id="@+id/first_pelabuhan_status_jadwal_kapal"
                 style="@style/PelabuhanTextTertiary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,22 +52,22 @@
                 android:text="@string/beroperasi"
                 android:textColor="@color/green"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/first_pelabuhan" />
+                app:layout_constraintTop_toBottomOf="@id/first_pelabuhan_jadwal_kapal" />
 
             <TextView
-                android:id="@+id/second_pelabuhan"
+                android:id="@+id/second_pelabuhan_jadwal_kapal"
                 style="@style/PelabuhanTextPrimary"
-                android:layout_width="140dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="25dp"
                 android:layout_marginTop="25dp"
-                android:text="@string/pelabuhan_tujuan"
+                android:text="Pelabuhan Lembar"
                 android:textAlignment="viewEnd"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/second_pelabuhan_status"
+                android:id="@+id/second_pelabuhan_status_jadwal_kapal"
                 style="@style/PelabuhanTextTertiary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,7 +75,7 @@
                 android:text="@string/beroperasi"
                 android:textColor="@color/green"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/second_pelabuhan" />
+                app:layout_constraintTop_toBottomOf="@id/second_pelabuhan_jadwal_kapal" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/first_pelabuhan_jadwal"
@@ -101,19 +91,19 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/first_pelabuhan_code"
+                        android:id="@+id/first_pelabuhan_code_jadwal_kapal"
                         style="@style/PelabuhanTextTertiary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
-                        android:text="@string/kodePelabuhan"
+                        android:text="PBS"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/first_start_clock"
+                        android:id="@+id/first_start_clock_jadwal_kapal"
                         style="@style/PelabuhanTextTertiary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -126,7 +116,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/first_dermaga"
+                        android:id="@+id/first_dermaga_jadwal_kapal"
                         style="@style/PelabuhanTextTertiary"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
@@ -137,7 +127,7 @@
                         android:textSize="9sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/first_start_clock" />
+                        app:layout_constraintTop_toBottomOf="@id/first_start_clock_jadwal_kapal" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -157,19 +147,19 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/second_pelabuhan_code"
+                        android:id="@+id/second_pelabuhan_code_jadwal_kapal"
                         style="@style/PelabuhanTextTertiary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
-                        android:text="@string/kodePelabuhan"
+                        android:text="PBL"
                         android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/second_start_clock"
+                        android:id="@+id/second_start_clock_jadwal_kapal"
                         style="@style/PelabuhanTextTertiary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -182,7 +172,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/second_dermaga"
+                        android:id="@+id/second_dermaga_jadwal_kapal"
                         style="@style/PelabuhanTextTertiary"
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
@@ -193,7 +183,7 @@
                         android:textSize="9sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/second_start_clock" />
+                        app:layout_constraintTop_toBottomOf="@id/second_start_clock_jadwal_kapal" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -201,77 +191,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/bottom_layout"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_layout">
-
-            <TextView
-                android:id="@+id/rupiah"
-                style="@style/PelabuhanTextTertiary"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/rupiah"
-                android:textSize="14sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/harga"
-                style="@style/PelabuhanTextTertiary"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:maxLines="1"
-                android:text="@string/harga"
-                android:textColor="@color/red"
-                android:textSize="14sp"
-                app:layout_constraintStart_toEndOf="@id/rupiah"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/terbayarkan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" - "
-                android:layout_marginBottom="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/slash"/>
-
-            <TextView
-                android:id="@+id/slash"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" / "
-                android:layout_marginBottom="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/jumlah_tiket"/>
-
-            <TextView
-                android:id="@+id/jumlah_tiket"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" - "
-                android:layout_marginEnd="35dp"
-                android:layout_marginBottom="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/btn_pilih_tiket"/>
-
-            <Button
-                android:id="@+id/btn_pilih_tiket"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="15dp"
-                android:padding="0dp"
-                android:text="@string/btn_pilih"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>

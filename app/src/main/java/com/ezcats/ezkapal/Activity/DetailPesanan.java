@@ -140,7 +140,7 @@ public class DetailPesanan extends AppCompatActivity implements PenumpangAdapter
                             if (response.code() == 200) {
                                 String message = response.body().getMessage();
                                 if (message.equals("success")) {
-                                    completion(response.body().getMidtransModel().getVirtualAccountModel());
+                                    completion(response.body().getMidtransModel().getVirtualAccountModel(), response.body().getExpiry());
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembalis1", Toast.LENGTH_SHORT).show();
                                 }
@@ -165,15 +165,17 @@ public class DetailPesanan extends AppCompatActivity implements PenumpangAdapter
         }
     }
 
-    private void completion(List<VirtualAccountModel> virtualAccountModels) {
+    private void completion(List<VirtualAccountModel> virtualAccountModels, String expiry) {
         Intent intent = new Intent(getApplicationContext(), PesananSukses.class);
         intent.putExtra("va_number", virtualAccountModels.get(0));
+        intent.putExtra("expiry_time", expiry);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
     private boolean checkPenumpangData(int jumlah) {
         int i2 = 0;
+        int check = 0;
         while (i2 < penumpangModels.size()) {
             PenumpangModel penumpangModel = penumpangModels.get(i2);
             if (!penumpangModel.getNamaPenumpang().equals("") && !penumpangModel.getKtpPenumpang().equals("")) {
@@ -183,11 +185,14 @@ public class DetailPesanan extends AppCompatActivity implements PenumpangAdapter
                 try{
                     double nops = Long.parseLong(penumpangModel.getKtpPenumpang());
                 } catch (NumberFormatException e) {
+                    penumpangModel.setCard_color("#ffffe0");
+                    penumpangModels.set(i2, penumpangModel);
+                    penumpangAdapter.notifyDataSetChanged();
                     Toast.makeText(getApplicationContext(), "Nomor handphone tidak boleh huruf", Toast.LENGTH_LONG).show();
-                    return false;
+                    check++;
                 } catch (Exception exception){
                     Toast.makeText(getApplicationContext(), "Nomor handphone tidak boleh huruf", Toast.LENGTH_LONG).show();
-                    return false;
+                    check++;
                 }
                 i2++;
             } else {
@@ -195,8 +200,11 @@ public class DetailPesanan extends AppCompatActivity implements PenumpangAdapter
                 penumpangModels.set(i2, penumpangModel);
                 penumpangAdapter.notifyDataSetChanged();
                 Toast.makeText(getApplicationContext(), "Harap mengisi semua data penumpang", Toast.LENGTH_LONG).show();
-                return false;
             }
+            i2++;
+        }
+        if(check>0){
+            return false;
         }
         return true;
     }

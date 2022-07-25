@@ -15,10 +15,14 @@ public class TransaksiJSONModel {
     @SerializedName("midtrans_response")
     private MidtransModel midtransModel;
 
-    public TransaksiJSONModel(String message, PembayaranModel pembayaranModel, MidtransModel midtransModel) {
+    @SerializedName("expiry")
+    private String expiry;
+
+    public TransaksiJSONModel(String message, PembayaranModel pembayaranModel, MidtransModel midtransModel, String expiry) {
         this.message = message;
         this.pembayaranModel = pembayaranModel;
         this.midtransModel = midtransModel;
+        this.expiry = expiry;
     }
 
     public String getMessage() {
@@ -45,12 +49,21 @@ public class TransaksiJSONModel {
         this.midtransModel = midtransModel;
     }
 
+    public String getExpiry() {
+        return expiry;
+    }
+
+    public void setExpiry(String expiry) {
+        this.expiry = expiry;
+    }
+
     @Override
     public String toString() {
         return "TransaksiJSONModel{" +
                 "message='" + message + '\'' +
                 ", pembayaranModel=" + pembayaranModel +
                 ", midtransModel=" + midtransModel +
+                ", expiry='" + expiry + '\'' +
                 '}';
     }
 }

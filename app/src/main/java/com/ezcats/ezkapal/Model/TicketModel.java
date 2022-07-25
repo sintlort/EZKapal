@@ -48,13 +48,19 @@ public class TicketModel implements Serializable {
     @SerializedName("nama_kapal")
     private String nama_kapal;
 
+    @SerializedName("terbayarkan")
+    private String terbayarkan;
+
+    @SerializedName("jumlah_tiket")
+    private String jumlah_tiket;
+
     @SerializedName("waktu_berangkat_asal")
     private String waktu_berangkat_asal;
 
     @SerializedName("waktu_berangkat_tujuan")
     private String waktu_berangkat_tujuan;
 
-    public TicketModel(int id_detail, String nama_asal, String nama_tujuan, String kode_pelabuhan_asal, String kode_pelabuhan_tujuan, String status_asal, String status_tujuan, String dermaga_asal, String dermaga_tujuan, String estimasi_waktu, String tanggal, String hari, String harga, String nama_kapal, String waktu_berangkat_asal, String waktu_berangkat_tujuan) {
+    public TicketModel(int id_detail, String nama_asal, String nama_tujuan, String kode_pelabuhan_asal, String kode_pelabuhan_tujuan, String status_asal, String status_tujuan, String dermaga_asal, String dermaga_tujuan, String estimasi_waktu, String tanggal, String hari, String harga, String nama_kapal, String terbayarkan, String jumlah_tiket, String waktu_berangkat_asal, String waktu_berangkat_tujuan) {
         this.id_detail = id_detail;
         this.nama_asal = nama_asal;
         this.nama_tujuan = nama_tujuan;
@@ -69,6 +75,8 @@ public class TicketModel implements Serializable {
         this.hari = hari;
         this.harga = harga;
         this.nama_kapal = nama_kapal;
+        this.terbayarkan = terbayarkan;
+        this.jumlah_tiket = jumlah_tiket;
         this.waktu_berangkat_asal = waktu_berangkat_asal;
         this.waktu_berangkat_tujuan = waktu_berangkat_tujuan;
     }
@@ -185,6 +193,22 @@ public class TicketModel implements Serializable {
         this.nama_kapal = nama_kapal;
     }
 
+    public String getTerbayarkan() {
+        return terbayarkan;
+    }
+
+    public void setTerbayarkan(String terbayarkan) {
+        this.terbayarkan = terbayarkan;
+    }
+
+    public String getJumlah_tiket() {
+        return jumlah_tiket;
+    }
+
+    public void setJumlah_tiket(String jumlah_tiket) {
+        this.jumlah_tiket = jumlah_tiket;
+    }
+
     public String getWaktu_berangkat_asal() {
         return waktu_berangkat_asal;
     }
@@ -218,6 +242,8 @@ public class TicketModel implements Serializable {
                 ", hari='" + hari + '\'' +
                 ", harga='" + harga + '\'' +
                 ", nama_kapal='" + nama_kapal + '\'' +
+                ", terbayarkan='" + terbayarkan + '\'' +
+                ", jumlah_tiket='" + jumlah_tiket + '\'' +
                 ", waktu_berangkat_asal='" + waktu_berangkat_asal + '\'' +
                 ", waktu_berangkat_tujuan='" + waktu_berangkat_tujuan + '\'' +
                 '}';

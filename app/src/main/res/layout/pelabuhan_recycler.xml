@@ -124,7 +124,7 @@
                     android:id="@+id/text_lama_beroperasi"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/textLamaBeroperasi"
+                    android:text="Tahun Beroperasi : "
                     android:layout_marginVertical="10dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="10dp"
@@ -141,15 +141,6 @@
                     style="@style/PelabuhanTextSecondary"
                     app:layout_constraintTop_toBottomOf="@id/text_tipe_pelabuhan"
                     app:layout_constraintStart_toEndOf="@id/text_lama_beroperasi" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tahun"
-                    android:layout_marginVertical="10dp"
-                    style="@style/PelabuhanTextSecondary"
-                    app:layout_constraintTop_toBottomOf="@id/text_tipe_pelabuhan"
-                    app:layout_constraintStart_toEndOf="@id/lama_beroperasi" />
 
                 <TextView
                     android:id="@+id/text_alamat"

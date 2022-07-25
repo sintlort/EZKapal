@@ -283,6 +283,10 @@ public class DetailTransaksiActivity extends AppCompatActivity implements Penump
 
     //INITIATING RECYCLER FOR PENUMPANG
     private void initRecycler(List<PenumpangModel> response) {
+        for(int i=0;i<response.size();i++){
+            PenumpangModel model = response.get(i);
+            response.set(i, new PenumpangModel(model.getNamaPenumpang(), model.getKtpPenumpang(),"#ffffff"));
+        }
         PenumpangAdapter penumpangAdapter = new PenumpangAdapter(response, this::onPenumpangClick);
         recyclerView.setAdapter(penumpangAdapter);
     }

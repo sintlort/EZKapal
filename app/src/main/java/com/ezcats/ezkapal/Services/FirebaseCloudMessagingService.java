@@ -83,7 +83,7 @@ public class FirebaseCloudMessagingService extends FirebaseMessagingService {
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(FirebaseCloudMessagingService.this.getApplicationContext(), from + " -> " + body,Toast.LENGTH_LONG).show();
+                Toast.makeText(FirebaseCloudMessagingService.this.getApplicationContext(), body,Toast.LENGTH_LONG).show();
             }
         });
     }

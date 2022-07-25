@@ -22,8 +22,6 @@ public class WebViewActivity extends AppCompatActivity {
         webView = findViewById(R.id.webViewID);
         webSettings = webView.getSettings();
         webView.setWebViewClient(new WebViewClient());
-        String kode = getIntent().getStringExtra("ticket_file");
-
-        webView.loadUrl("http://10.0.2.2:8000/pdf/check/"+kode);
+        webView.loadUrl("https://e-tiket.ngaeapp.com/page/berita/detail/1");
     }
 }

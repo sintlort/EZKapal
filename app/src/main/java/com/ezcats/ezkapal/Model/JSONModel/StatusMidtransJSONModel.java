@@ -16,10 +16,14 @@ public class StatusMidtransJSONModel implements Serializable {
     @SerializedName("data")
     private MidtransModel midtransModel;
 
-    public StatusMidtransJSONModel(String error, String message, MidtransModel midtransModel) {
+    @SerializedName("expiry")
+    private String expiry;
+
+    public StatusMidtransJSONModel(String error, String message, MidtransModel midtransModel, String expiry) {
         this.error = error;
         this.message = message;
         this.midtransModel = midtransModel;
+        this.expiry = expiry;
     }
 
     public String getError() {
@@ -46,12 +50,22 @@ public class StatusMidtransJSONModel implements Serializable {
         this.midtransModel = midtransModel;
     }
 
+    public String getExpiry() {
+        return expiry;
+    }
+
+    public void setExpiry(String expiry) {
+        this.expiry = expiry;
+    }
+
     @Override
     public String toString() {
         return "StatusMidtransJSONModel{" +
                 "error='" + error + '\'' +
                 ", message='" + message + '\'' +
                 ", midtransModel=" + midtransModel +
+                ", expiry='" + expiry + '\'' +
                 '}';
     }
 }
+

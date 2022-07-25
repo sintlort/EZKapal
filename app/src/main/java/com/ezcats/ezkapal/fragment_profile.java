@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ezcats.ezkapal.Activity.EditProfileActivity;
+import com.ezcats.ezkapal.Activity.InfoKapal;
+import com.ezcats.ezkapal.Activity.JadwalKapal;
 import com.ezcats.ezkapal.Activity.LandingActivity;
 import com.ezcats.ezkapal.Activity.RiwayatTransaksiActivity;
 import com.ezcats.ezkapal.Activity.TransaksiTerkiniActivity;
@@ -31,7 +33,7 @@ public class fragment_profile extends Fragment implements LogoutFragment.LogoutL
     private static final String TAG = "PROFILE_FRAGMENT";
 
 
-    CardView transaksiTerkini, transaksiRiwayat, hubungi, logout;
+    CardView transaksiTerkini, transaksiRiwayat, hubungi, logout, info_kapal, jadwal_kapal;
     Button editProfile;
     CircleImageView circleImageView;
     SharedPreferences sharedPreferences;
@@ -49,7 +51,11 @@ public class fragment_profile extends Fragment implements LogoutFragment.LogoutL
         nameProfile = v.findViewById(R.id.profile_name);
         circleImageView = v.findViewById(R.id.profile_image_fragment);
         editProfile = v.findViewById(R.id.edit_profile_fragment);
+        info_kapal = v.findViewById(R.id.info_kapal);
+        jadwal_kapal = v.findViewById(R.id.jadwal_kapal);
         sharedPreferences = getActivity().getSharedPreferences(getString(R.string.shared_preference), Context.MODE_PRIVATE);
+        String type_account = sharedPreferences.getString(getString(R.string.type_account), "");
+        checkAccount(type_account);
         name = sharedPreferences.getString(getString(R.string.name_shared_preference),"");
         foto = sharedPreferences.getString(getString(R.string.picture_shared_preference),"");
         loadPicasso();
@@ -94,7 +100,41 @@ public class fragment_profile extends Fragment implements LogoutFragment.LogoutL
             }
         });
 
+        info_kapal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoKapal();
+            }
+        });
+
+        jadwal_kapal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gotoJadwal();
+            }
+        });
+
         return v;
+    }
+
+    private void gotoKapal() {
+        Intent intent = new Intent(getContext(), InfoKapal.class);
+        startActivity(intent);
+    }
+
+    private void gotoJadwal() {
+        Intent intent = new Intent(getContext(), JadwalKapal.class);
+        startActivity(intent);
+    }
+
+    private void checkAccount(String type_account) {
+        if(type_account.matches("TAdmin")){
+            info_kapal.setVisibility(View.VISIBLE);
+            jadwal_kapal.setVisibility(View.VISIBLE);
+        } else {
+            info_kapal.setVisibility(View.GONE);
+            jadwal_kapal.setVisibility(View.GONE);
+        }
     }
 
     private void loadPicasso() {

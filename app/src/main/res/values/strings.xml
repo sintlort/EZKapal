@@ -92,6 +92,8 @@
 
     <string name="transaksi">Transaksi</string>
     <string name="transaksi_terkini">Transaksi Terkini</string>
+    <string name="jadwal_kapal">Daftar Jadwal</string>
+    <string name="data_kapal">Info Transportasi</string>
     <string name="history_transaksi">Riwayat Transaksi</string>
     <string name="hubungi_kami">Hubungi Kami</string>
     <string name="logout">Logout</string>

@@ -1,6 +1,7 @@
 package com.ezcats.ezkapal.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,13 @@ public class PenumpangAdapter extends RecyclerView.Adapter<PenumpangAdapter.Penu
         holder.number.setText(String.valueOf(position + 1));
         holder.namePenumpang.setText(model.getNamaPenumpang());
         holder.ktpPenumpang.setText(model.getKtpPenumpang());
+        if(model.getCard_color().matches("#ffffe0")){
+            holder.cardView.setCardBackgroundColor(Color.RED);
+            holder.cardView.setAlpha(0.5f);
+        } else {
+            holder.cardView.setCardBackgroundColor(Color.WHITE);
+            holder.cardView.setAlpha(1f);
+        }
     }
 
     @Override
@@ -59,12 +67,14 @@ public class PenumpangAdapter extends RecyclerView.Adapter<PenumpangAdapter.Penu
     public class PenumpangViewHolder extends RecyclerView.ViewHolder {
         TextView number, namePenumpang, ktpPenumpang;
         CardView cardView;
+        ConstraintLayout constraintLayout;
         public PenumpangViewHolder(@NonNull View itemView, OnPenumpangView onPenumpangView) {
             super(itemView);
             number = itemView.findViewById(R.id.nomor_penumpang);
             namePenumpang = itemView.findViewById(R.id.nama_penumpang);
             ktpPenumpang = itemView.findViewById(R.id.nomor_ktp);
             cardView = itemView.findViewById(R.id.card_id);
+            constraintLayout = itemView.findViewById(R.id.constraint_penumpang);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

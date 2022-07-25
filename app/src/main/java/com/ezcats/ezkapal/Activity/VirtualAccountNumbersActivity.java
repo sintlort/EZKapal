@@ -43,5 +43,6 @@ public class VirtualAccountNumbersActivity extends AppCompatActivity {
     private void displayData() {
         nama_bank.setText(statusMidtransJSONModel.getMidtransModel().getVirtualAccountModel().get(0).getBank().toUpperCase());
         van.setText(statusMidtransJSONModel.getMidtransModel().getVirtualAccountModel().get(0).getVirtual_account_number());
+        expiry.setText(statusMidtransJSONModel.getExpiry());
     }
 }

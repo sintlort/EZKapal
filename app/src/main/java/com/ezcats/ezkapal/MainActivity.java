@@ -126,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
         }.start();*/
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-
             switch (item.getItemId()) {
                 case R.id.bot_frag_home:
                     replaceFragment(new home_fragment_without_shimmer(), "left", "HOME_WITHOUT_SHIMMER_FRAGMENT");

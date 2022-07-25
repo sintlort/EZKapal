@@ -1,5 +1,6 @@
 package com.ezcats.ezkapal;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ezcats.ezkapal.Activity.WebViewActivity;
 import com.ezcats.ezkapal.Adapter.BeritaAdapter;
 import com.ezcats.ezkapal.Model.BeritaModel;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -54,8 +56,20 @@ public class home_fragment extends Fragment {
     }
 
     public void beritaRecycler() {
-        BeritaAdapter beritaAdapter = new BeritaAdapter(beritaModelKapal);
-        BeritaAdapter beritaAdapterPelabuhan = new BeritaAdapter(beritaModelPelabuhan);
+        BeritaAdapter beritaAdapter = new BeritaAdapter(beritaModelKapal, new BeritaAdapter.OnBeritaClick() {
+            @Override
+            public void OnBeritaSelect() {
+                Intent intent = new Intent(getContext(), WebViewActivity.class);
+                startActivity(intent);
+            }
+        });
+        BeritaAdapter beritaAdapterPelabuhan = new BeritaAdapter(beritaModelPelabuhan, new BeritaAdapter.OnBeritaClick() {
+            @Override
+            public void OnBeritaSelect() {
+                Intent intent = new Intent(getContext(), WebViewActivity.class);
+                startActivity(intent);
+            }
+        });
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         beritaKapal.setLayoutManager(layoutManager);

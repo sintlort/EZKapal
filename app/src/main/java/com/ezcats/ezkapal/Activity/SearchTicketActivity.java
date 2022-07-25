@@ -51,7 +51,7 @@ public class SearchTicketActivity extends AppCompatActivity implements SearchTic
     }
 
     private void startRecycler(List<TicketModel> ticketModels) {
-        SearchTicketAdapter adapter = new SearchTicketAdapter(ticketModels, this::onClickPilihTiket);
+        SearchTicketAdapter adapter = new SearchTicketAdapter(ticketModels, this::onClickPilihTiket, jumlah_penumpang);
         recyclerView = findViewById(R.id.ticket_recycler);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
@@ -66,7 +66,9 @@ public class SearchTicketActivity extends AppCompatActivity implements SearchTic
             @Override
             public void onResponse(Call<List<TicketModel>> call, Response<List<TicketModel>> response) {
                 if (response.isSuccessful()){
-                    startRecycler(response.body());
+                    if(response.code()==200){
+                        startRecycler(response.body());
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(), "Mohon persiksa internet anda!", Toast.LENGTH_LONG).show();
                 }

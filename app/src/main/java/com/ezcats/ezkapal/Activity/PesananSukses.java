@@ -16,14 +16,17 @@ public class PesananSukses extends AppCompatActivity {
 
     Button lanjutkanButton;
 
-    TextView vaNumber;
+    TextView vaNumber, expiry_time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pesanan_sukses);
         lanjutkanButton = findViewById(R.id.lanjutkan);
         vaNumber = findViewById(R.id.van);
+        expiry_time = findViewById(R.id.batas_waktu);
         VirtualAccountModel virtualAccountModel = (VirtualAccountModel) getIntent().getSerializableExtra("va_number");
+        String expiry = getIntent().getExtras().getString("expiry_time");
+        expiry_time.setText(expiry);
         vaNumber.setText(virtualAccountModel.getVirtual_account_number());
         lanjutkanButton.setOnClickListener(new View.OnClickListener() {
             @Override

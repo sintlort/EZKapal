@@ -37,6 +37,7 @@
         android:id="@+id/image_pelabuhan_2"
         android:layout_width="100px"
         android:layout_height="100px"
+        android:scaleX="-1"
         android:layout_marginHorizontal="25dp"
         android:layout_marginVertical="33dp"
         android:src="@drawable/color_boat"

@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EZKapal">
-        <activity android:name=".Activity.VirtualAccountNumbersActivity"></activity>
+        <activity android:name=".Activity.JadwalKapal"></activity>
+        <activity android:name=".Activity.InfoKapal" />
+        <activity android:name=".Activity.AdminActivity" />
+        <activity android:name=".Activity.VirtualAccountNumbersActivity" />
         <activity android:name=".Activity.NotificationActivity" />
         <activity android:name=".Activity.EditPasswordActivity" />
         <activity android:name=".Activity.EditProfileActivity" />

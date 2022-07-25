@@ -1,6 +1,7 @@
 package com.ezcats.ezkapal.APIClient.Service;
 
 import com.ezcats.ezkapal.Model.GolonganModel;
+import com.ezcats.ezkapal.Model.JSONModel.JadwalKapalJSONModel;
 import com.ezcats.ezkapal.Model.PelabuhanModel;
 import com.ezcats.ezkapal.Model.TicketModel;
 
@@ -37,4 +38,10 @@ public interface TicketService {
     Call<List<GolonganModel>> getGolonganSpeedboat(@Header("Authorization") String authHeader,
                                                    @Header("Accept") String type,
                                                    @Header("X-Requested-With") String request);
+
+
+    @POST("get/kapal/jadwal")
+    Call<JadwalKapalJSONModel> getJadwalKapal(@Header("Authorization") String authHeader,
+                                              @Header("Accept") String type,
+                                              @Header("X-Requested-With") String request);
 }
