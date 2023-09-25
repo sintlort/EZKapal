@@ -24,13 +24,33 @@ public class PemegangTicketModel implements Serializable {
     @SerializedName("tanggal")
     private String tanggal;
 
-    public PemegangTicketModel(int id_detail, int id_pembelian, String nama_pemegang_tiket, String kode_tiket, String status, String tanggal) {
+    @SerializedName("pelabuhan_asal")
+    private String pelabuhan_asal;
+
+    @SerializedName("pelabuhan_tujuan")
+    private String pelabuhan_tujuan;
+
+    @SerializedName("kapal")
+    private String kapal;
+
+    @SerializedName("waktu_asal")
+    private String waktu_asal;
+
+    @SerializedName("waktu_tujuan")
+    private String waktu_tujuan;
+
+    public PemegangTicketModel(int id_detail, int id_pembelian, String nama_pemegang_tiket, String kode_tiket, String status, String tanggal, String pelabuhan_asal, String pelabuhan_tujuan, String kapal, String waktu_asal, String waktu_tujuan) {
         this.id_detail = id_detail;
         this.id_pembelian = id_pembelian;
         this.nama_pemegang_tiket = nama_pemegang_tiket;
         this.kode_tiket = kode_tiket;
         this.status = status;
         this.tanggal = tanggal;
+        this.pelabuhan_asal = pelabuhan_asal;
+        this.pelabuhan_tujuan = pelabuhan_tujuan;
+        this.kapal = kapal;
+        this.waktu_asal = waktu_asal;
+        this.waktu_tujuan = waktu_tujuan;
     }
 
     public int getId_detail() {
@@ -81,6 +101,46 @@ public class PemegangTicketModel implements Serializable {
         this.tanggal = tanggal;
     }
 
+    public String getPelabuhan_asal() {
+        return pelabuhan_asal;
+    }
+
+    public void setPelabuhan_asal(String pelabuhan_asal) {
+        this.pelabuhan_asal = pelabuhan_asal;
+    }
+
+    public String getPelabuhan_tujuan() {
+        return pelabuhan_tujuan;
+    }
+
+    public void setPelabuhan_tujuan(String pelabuhan_tujuan) {
+        this.pelabuhan_tujuan = pelabuhan_tujuan;
+    }
+
+    public String getKapal() {
+        return kapal;
+    }
+
+    public void setKapal(String kapal) {
+        this.kapal = kapal;
+    }
+
+    public String getWaktu_asal() {
+        return waktu_asal;
+    }
+
+    public void setWaktu_asal(String waktu_asal) {
+        this.waktu_asal = waktu_asal;
+    }
+
+    public String getWaktu_tujuan() {
+        return waktu_tujuan;
+    }
+
+    public void setWaktu_tujuan(String waktu_tujuan) {
+        this.waktu_tujuan = waktu_tujuan;
+    }
+
     @Override
     public String toString() {
         return "PemegangTicketModel{" +
@@ -90,6 +150,11 @@ public class PemegangTicketModel implements Serializable {
                 ", kode_tiket='" + kode_tiket + '\'' +
                 ", status='" + status + '\'' +
                 ", tanggal='" + tanggal + '\'' +
+                ", pelabuhan_asal='" + pelabuhan_asal + '\'' +
+                ", pelabuhan_tujuan='" + pelabuhan_tujuan + '\'' +
+                ", kapal='" + kapal + '\'' +
+                ", waktu_asal='" + waktu_asal + '\'' +
+                ", waktu_tujuan='" + waktu_tujuan + '\'' +
                 '}';
     }
 }

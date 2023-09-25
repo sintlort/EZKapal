@@ -139,6 +139,10 @@ public class ticket_speedboat extends Fragment implements PelabuhanFragment.Send
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
         final int day = calendar.get(Calendar.DAY_OF_MONTH);
+        final Calendar maxDate = Calendar.getInstance();
+        maxDate.set(Calendar.DAY_OF_MONTH, day);
+        maxDate.set(Calendar.MONTH, month);
+        maxDate.set(Calendar.YEAR, year);
 
         mTanggalKeberangkatan = v.findViewById(R.id.tanggal_keberangkatan_s);
 
@@ -149,6 +153,7 @@ public class ticket_speedboat extends Fragment implements PelabuhanFragment.Send
             public void onClick(View view) {
                 DatePickerDialog datePickerDialog = new DatePickerDialog(
                         getActivity(), onDateSetListener, year, month, day);
+                datePickerDialog.getDatePicker().setMinDate(maxDate.getTimeInMillis());
                 datePickerDialog.show();
             }
         });

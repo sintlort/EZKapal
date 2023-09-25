@@ -31,6 +31,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/image_berita"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="Title"
                 android:layout_margin="10dp"
                 android:textSize="15dp"

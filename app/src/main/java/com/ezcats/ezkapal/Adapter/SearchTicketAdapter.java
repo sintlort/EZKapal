@@ -52,14 +52,6 @@ public class SearchTicketAdapter extends RecyclerView.Adapter<SearchTicketAdapte
         holder.dockPortStart.setText(ticketModel.getDermaga_asal());
         holder.dockPortEnd.setText(ticketModel.getDermaga_tujuan());
         holder.priceTicket.setText(ticketModel.getHarga());
-        holder.terbayarkan.setText(ticketModel.getTerbayarkan());
-        holder.jumlahTiket.setText(ticketModel.getJumlah_tiket());
-        int schedule_left = Integer.parseInt(ticketModel.getJumlah_tiket()) - Integer.parseInt(ticketModel.getTerbayarkan());
-        if(Integer.parseInt(ticketModel.getTerbayarkan()) >= Integer.parseInt(ticketModel.getJumlah_tiket()) || schedule_left < jumlah_penumpang){
-            holder.mBtnPilih.setEnabled(false);
-            holder.mBtnPilih.setBackgroundColor(Color.GRAY);
-            holder.mBtnPilih.setClickable(false);
-        }
     }
 
     @Override
@@ -70,7 +62,7 @@ public class SearchTicketAdapter extends RecyclerView.Adapter<SearchTicketAdapte
 
     public class SearchTicketViewHolder extends RecyclerView.ViewHolder {
 
-        TextView ticketDays, ticketDate, portNameStart, portNameEnd, statusPortStart, statusPortEnd, codePortStart, codePortEnd, clockPortStart, clockPortEnd, dockPortStart, dockPortEnd, priceTicket, terbayarkan, jumlahTiket;
+        TextView ticketDays, ticketDate, portNameStart, portNameEnd, statusPortStart, statusPortEnd, codePortStart, codePortEnd, clockPortStart, clockPortEnd, dockPortStart, dockPortEnd, priceTicket;
         Button mBtnPilih;
 
         public SearchTicketViewHolder(@NonNull View v, OnPilihTiketListener onPilihTiketListener) {
@@ -88,8 +80,6 @@ public class SearchTicketAdapter extends RecyclerView.Adapter<SearchTicketAdapte
             dockPortStart = v.findViewById(R.id.first_dermaga);
             dockPortEnd = v.findViewById(R.id.second_dermaga);
             priceTicket = v.findViewById(R.id.harga);
-            terbayarkan = v.findViewById(R.id.terbayarkan);
-            jumlahTiket = v.findViewById(R.id.jumlah_tiket);
 
             mBtnPilih = v.findViewById(R.id.btn_pilih_tiket);
             mBtnPilih.setOnClickListener(new View.OnClickListener() {

@@ -36,6 +36,7 @@ import com.ezcats.ezkapal.Model.UserModel;
 import com.ezcats.ezkapal.Model.VirtualAccountModel;
 import com.ezcats.ezkapal.R;
 import com.ezcats.ezkapal.ticket_kapal;
+import com.google.android.material.button.MaterialButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,7 +67,7 @@ public class DetailPesanan extends AppCompatActivity implements PenumpangAdapter
     List<PenumpangModel> penumpangModels;
     PenumpangAdapter penumpangAdapter;
 
-    Button pesanTiket;
+    MaterialButton pesanTiket;
 
     int i = 1;
     int success;

@@ -99,8 +99,6 @@ public class EditProfileActivity extends AppCompatActivity implements UploadProf
     }
 
     private void setProfile(UserModel body) {
-        String url = "https://android.e-tiket.ngaeapp.com/storage/images/profile/"+body.getFoto();
-        Picasso.get().load(url).placeholder(R.drawable.home_fragment_profile).into(circleImageView);
         profile_names.setText(body.getNama_user());
         name.setText(body.getNama_user());
         address.setText(body.getAlamat());
@@ -112,6 +110,8 @@ public class EditProfileActivity extends AppCompatActivity implements UploadProf
         editor.putString(getString(R.string.number_shared_preference), body.getNohp());
         editor.putString(getString(R.string.address_shared_preference), body.getAlamat());
         editor.apply();
+        String url = "https://android.e-tiket.ngaeapp.com/storage/images/profile/"+body.getFoto();
+        Picasso.get().load(url).placeholder(R.drawable.home_fragment_profile).into(circleImageView);
     }
 
     private void initOnClick() {
@@ -221,7 +221,7 @@ public class EditProfileActivity extends AppCompatActivity implements UploadProf
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(getString(R.string.picture_shared_preference), data.getFoto());
         editor.apply();
-        String url = "http://10.0.2.2:8000/storage/images/profile/"+data.getFoto();
+        String url = "https://android.e-tiket.ngaeapp.com/storage/images/profile/"+data.getFoto();
         Picasso.get().load(url).placeholder(R.drawable.home_fragment_profile).into(circleImageView);
     }
 }

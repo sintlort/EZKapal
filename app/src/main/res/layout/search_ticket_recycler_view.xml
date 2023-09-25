@@ -61,6 +61,7 @@
                 android:layout_marginStart="25dp"
                 android:text="@string/beroperasi"
                 android:textColor="@color/green"
+                app:layout_constraintBottom_toTopOf="@id/first_pelabuhan_jadwal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/first_pelabuhan" />
 
@@ -84,6 +85,7 @@
                 android:layout_marginHorizontal="25dp"
                 android:text="@string/beroperasi"
                 android:textColor="@color/green"
+                app:layout_constraintBottom_toTopOf="@id/second_pelabuhan_jadwal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/second_pelabuhan" />
 
@@ -94,7 +96,8 @@
                 android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/second_pelabuhan_jadwal"
-                app:layout_constraintStart_toStartOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/first_pelabuhan_status">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -150,7 +153,8 @@
                 android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/first_pelabuhan_jadwal">
+                app:layout_constraintStart_toEndOf="@+id/first_pelabuhan_jadwal"
+                app:layout_constraintTop_toBottomOf="@id/second_pelabuhan_status">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -232,34 +236,6 @@
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@id/rupiah"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/terbayarkan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" - "
-                android:layout_marginBottom="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/slash"/>
-
-            <TextView
-                android:id="@+id/slash"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" / "
-                android:layout_marginBottom="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/jumlah_tiket"/>
-
-            <TextView
-                android:id="@+id/jumlah_tiket"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" - "
-                android:layout_marginEnd="35dp"
-                android:layout_marginBottom="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/btn_pilih_tiket"/>
 
             <Button
                 android:id="@+id/btn_pilih_tiket"

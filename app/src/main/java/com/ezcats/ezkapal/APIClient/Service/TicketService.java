@@ -26,22 +26,37 @@ public interface TicketService {
                                           @Field("asal_pelabuhan") int asal_pelabuhan,
                                           @Field("tujuan_pelabuhan") int tujuan_pelabuhan,
                                           @Field("date") String date,
-                                          @Field("tipe_kapal") String tipe_kapal);
+                                          @Field("tipe_kapal") String tipe_kapal
+    );
 
 
     @GET("golongan/all")
     Call<List<GolonganModel>> getGolongan(@Header("Authorization") String authHeader,
                                           @Header("Accept") String type,
-                                          @Header("X-Requested-With") String request);
+                                          @Header("X-Requested-With") String request
+    );
 
     @GET("golongan/speedboat")
     Call<List<GolonganModel>> getGolonganSpeedboat(@Header("Authorization") String authHeader,
                                                    @Header("Accept") String type,
-                                                   @Header("X-Requested-With") String request);
+                                                   @Header("X-Requested-With") String request
+    );
 
 
     @POST("get/kapal/jadwal")
     Call<JadwalKapalJSONModel> getJadwalKapal(@Header("Authorization") String authHeader,
                                               @Header("Accept") String type,
-                                              @Header("X-Requested-With") String request);
+                                              @Header("X-Requested-With") String request
+    );
+
+    @FormUrlEncoded
+    @POST("jadwal/filter")
+    Call<JadwalKapalJSONModel> sendFilter(@Header("Authorization") String authHeader,
+                                          @Header("Accept") String type,
+                                          @Header("X-Requested-With") String request,
+                                          @Field("asal_pelabuhan") int asal_pelabuhan,
+                                          @Field("tujuan_pelabuhan") int tujuan_pelabuhan,
+                                          @Field("golongan") int golongan,
+                                          @Field("date") String date
+    );
 }

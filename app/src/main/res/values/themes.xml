@@ -62,4 +62,15 @@
         <item name="android:textColor">@color/light_grey</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="BottomSheetDialogAnimationStyle">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom_sheet</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom_sheet</item>
+    </style>
+
+    <style name="TransparentToolbar" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <!-- Support Library compability -->
+        <item name="windowActionBarOverlay">true</item>
+    </style>
 </resources>

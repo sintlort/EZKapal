@@ -3,6 +3,7 @@ package com.ezcats.ezkapal;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -12,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -93,11 +95,11 @@ public class MainActivity extends AppCompatActivity {
 
                         Log.d("MAINACTIVITY", tokens);
                         AccountService accountService = RetrofitClient.getRetrofitInstance().create(AccountService.class);
-                        Call<ResponseBody> call = accountService.receiveFCM("application/json","XMLHttpRequest",token, tokens);
+                        Call<ResponseBody> call = accountService.receiveFCM("application/json", "XMLHttpRequest", token, tokens);
                         call.enqueue(new Callback<ResponseBody>() {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                if(response.code() != 200){
+                                if (response.code() != 200) {
                                     sharedPreferences.edit().clear().apply();
                                     Intent intent = new Intent(getApplicationContext(), LandingActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -131,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                     replaceFragment(new home_fragment_without_shimmer(), "left", "HOME_WITHOUT_SHIMMER_FRAGMENT");
                     break;
                 case R.id.bot_frag_ticket:
-                    replaceFragment(new fragment_ticket(), "right","TICKET_FRAGMENT");
+                    replaceFragment(new fragment_ticket(), "right", "TICKET_FRAGMENT");
                     break;
 
                 case R.id.bot_frag_profile:
@@ -148,11 +150,14 @@ public class MainActivity extends AppCompatActivity {
             binding.fabButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    IntentIntegrator intentIntegrator = new IntentIntegrator(MainActivity.this);
+                    Intent intent = new Intent(getApplicationContext(), CaptureActivity.class);
+                    startActivity(intent);
+
+                    /*IntentIntegrator intentIntegrator = new IntentIntegrator(MainActivity.this);
                     intentIntegrator.setPrompt("Flash tekan volume atas!");
                     intentIntegrator.setOrientationLocked(true);
                     intentIntegrator.setCaptureActivity(CaptureActivity.class);
-                    intentIntegrator.initiateScan();
+                    intentIntegrator.initiateScan();*/
                 }
             });
         }
@@ -175,67 +180,15 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (intentResult.getContents() != null) {
             Log.d("QRCODEDATA", "onActivityResult: CODE " + intentResult.getContents());
-            TransactionService transactionService = RetrofitClient.getRetrofitInstance().create(TransactionService.class);
-            Call<ResponseBody> call = transactionService.getTicketData(token, "application/json", "XMLHttpRequest", intentResult.getContents());
-            call.enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    if (response.isSuccessful()) {
-                        if (response.code() == 200) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(response.body().string());
-                                String message = jsonObject.getString("message");
-                                if (message.equals("success")) {
-                                    JSONObject dataObject = jsonObject.getJSONObject("data");
-                                    PemegangTicketModel pemegangTicketModel =
-                                            new PemegangTicketModel(dataObject.getInt("id_detail_pembelian"),
-                                                    dataObject.getInt("id_pembelian"),
-                                                    dataObject.getString("nama_pemegang_tiket"),
-                                                    dataObject.getString("kode_tiket"),
-                                                    dataObject.getString("status"),
-                                                    dataObject.getString("tanggal"));
-                                    VerifikasiFragment verifikasiFragment = new VerifikasiFragment();
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("ticket_info", pemegangTicketModel);
-                                    bundle.putString("intentResults", intentResult.getContents());
-                                    verifikasiFragment.setArguments(bundle);
-                                    verifikasiFragment.show(getSupportFragmentManager(), "VERIFIKASI_FRAGMENT");
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Informasi tiket tidak ditemukan", Toast.LENGTH_SHORT).show();
-                                }
-                            } catch (JSONException e) {
-                                Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali, \njika kesalahan terjadi berulang, harap menghubungi administrator", Toast.LENGTH_SHORT).show();
-                                Log.d("GET TICKET DATA", "onResponse: GET TICKET DATA API FAILED JSONEXCEPTION");
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali, \njika kesalahan terjadi berulang, harap menghubungi administrator", Toast.LENGTH_SHORT).show();
-                                Log.d("GET TICKET DATA", "onResponse: GET TICKET DATA API FAILED IOEXCEPTION");
-                                e.printStackTrace();
-                            }
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
-                            Log.d("GET TICKET DATA", "onResponse: GET TICKET DATA API NOT 200");
-                        }
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
-                        Log.d("GET TICKET DATA", "onResponse: GET TICKET DATA API NOT SUCCESSFUL");
-                    }
-                }
 
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), "Sepertinya terjadi kesalahan, harap ulangi kembali", Toast.LENGTH_SHORT).show();
-                    Log.d("GET TICKET DATA", "onResponse: GET TICKET DATA API ON FAILURE");
-                }
-            });
         } else {
             Toast.makeText(MainActivity.this, "QRCode tidak ditemukan!", Toast.LENGTH_LONG).show();
         }
-    }
+    }*/
 }
